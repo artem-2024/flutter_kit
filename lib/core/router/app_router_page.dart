@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_kit/flutter_kit.dart';
 import '../../widget/animation/circle_reaval.dart';
+import 'app_router_delegate.dart';
 
 enum RouteStyle {
   /// 安卓风格的跳转页面
@@ -137,3 +138,17 @@ get transitionsBuilderTransparent => (
         child: child,
       );
     };
+
+/// 根据路由器获取页面实际展示的Widget,默认取当前页面
+Widget? getPageChildByRouter({RouteSettings? routeSettings}) {
+  final tmpPage = routeSettings ?? AppRouterDelegate.of().currentConfiguration;
+  Widget? currentPageChild;
+  if (tmpPage is MaterialPage) {
+    currentPageChild = tmpPage.child;
+  } else if (tmpPage is CupertinoPage) {
+    currentPageChild = tmpPage.child;
+  } else if (tmpPage is CustomPage) {
+    currentPageChild = tmpPage.child;
+  }
+  return currentPageChild;
+}
