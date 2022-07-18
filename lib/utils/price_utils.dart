@@ -1,8 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:lms_app/config/build_config.dart';
-import 'package:lms_app/view_model/saas_model.dart';
-import 'package:provider/provider.dart';
+
+import '../flutter_kit.dart';
 
 const _defaultPricePreFix = '¥';
 const _defaultFreeStr = '免费';
@@ -124,18 +122,18 @@ class DefaultPriceWidget extends StatelessWidget {
       );
     }
     // 处理iOS audit
-    if (defaultTargetPlatform == TargetPlatform.iOS) {
-      child = Selector<SaasModel, bool?>(
-        selector: (_, viewModel) => viewModel.isIOSAuditNow,
-        builder: (_, isIOSAuditNow, child) {
-          return Offstage(
-            offstage: isIOSAuditNow == true,
-            child: child!,
-          );
-        },
-        child: child,
-      );
-    }
+    // if (defaultTargetPlatform == TargetPlatform.iOS) {
+    //   child = Selector<SaasModel, bool?>(
+    //     selector: (_, viewModel) => viewModel.isIOSAuditNow,
+    //     builder: (_, isIOSAuditNow, child) {
+    //       return Offstage(
+    //         offstage: isIOSAuditNow == true,
+    //         child: child!,
+    //       );
+    //     },
+    //     child: child,
+    //   );
+    // }
     return child;
   }
 }

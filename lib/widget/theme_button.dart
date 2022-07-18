@@ -1,7 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:lms_app/utils/gesture.dart';
+
+import '../utils/gesture.dart';
 
 ///
 /// 主题样式的按钮

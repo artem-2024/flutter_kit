@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lms_app/widget/image/default_image.dart';
+
+import 'image/default_image.dart';
 
 /// 单个图标按钮
 class DefaultIconButton extends StatelessWidget {

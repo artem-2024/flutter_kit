@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:lms_app/utils/gesture.dart';
-import 'package:lms_app/view/pages/home_new/widget/component_empty_container.dart';
-import '../../config/build_config.dart';
 
+import '../../flutter_kit.dart';
+import '../../utils/gesture.dart';
 import '../default_appbar.dart';
+import 'component_empty_container.dart';
 
 class ErrorDataContainer extends StatelessWidget {
   /// 标题
-  final String title;
+  final String? title;
 
   /// assets bundle图片ur;
   final String assetBundleUrl;
+
   /// 按钮文字
   final String btnText;
 
@@ -20,7 +21,7 @@ class ErrorDataContainer extends StatelessWidget {
 
   const ErrorDataContainer({
     Key? key,
-    this.title = errorMessage,
+    this.title,
     this.assetBundleUrl = errorAssetBundleUrl,
     this.onRefresh,
     this.showHeader = false,
@@ -30,7 +31,7 @@ class ErrorDataContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget child = ComponentEmptyContainer(
-      title: title,
+      title: title ?? errorMessage,
       btnText: btnText,
       showBtn: true,
     );

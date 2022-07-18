@@ -1,15 +1,22 @@
 import 'dart:async';
 
+import 'package:app_installer/app_installer.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 
-
+import '../flutter_kit.dart';
+import '../widget/image/default_image.dart';
+import '../widget/theme_button.dart';
 import 'file_utils.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 
+import 'logger.dart';
 import 'storage.dart';
+import 'toast_utils.dart';
 
 /// 为true时表示不再主动提示更新
 const _noTipAgainKey = 'checkUp_noTipAgainKey';
@@ -27,40 +34,27 @@ class CheckUpUtils {
     ValueChanged<bool>? onShowLoading,
     bool showToastMsg = true,
     bool? isManualCall,
+    required bool mustUpgrade,
+    required String releaseUrl,
+    required int releaseCode,
+    String releaseDesc = '体验优化',
   }) async {
-    AppVersionEntity? versionEntity;
-
-    onShowLoading?.call(true);
-    try {
-      versionEntity = await _getCheckUpdateInfo();
-    } catch (e, s) {
-      LogUtils.instance.e('获取版本更新数据发生错误', e, s);
-    }
-    onShowLoading?.call(false);
-
-    // 判空
-    if (versionEntity == null) {
-      if (showToastMsg) {
-        // ToastUtils.showText('暂无法检查更新');
-        ToastUtils.showText('当前版本已是最新版本');
-      }
-      return;
-    }
-
     // 不是手动调用 且 不是强制更新 就判断用户是否选择了不再提示更新
-    if (isManualCall != true && versionEntity.mustUpgrade != true) {
+    if (isManualCall != true && mustUpgrade != true) {
       final isNoTipAgain = await StorageUtils.getBool(_noTipAgainKey);
       if (isNoTipAgain == true) {
         LogUtils.instance.i('CheckUpUtils : 用户选择了不再提示更新，退出弹窗提示');
         return;
       }
     }
-
     // 弹窗
     return showCheckUpDialog(
-      versionEntity: versionEntity,
       context: context,
       isManualCall: isManualCall,
+      releaseUrl: releaseUrl,
+      releaseCode: releaseCode,
+      releaseDesc: releaseDesc,
+      mustUpgrade: mustUpgrade,
     );
   }
 
@@ -74,14 +68,18 @@ class CheckUpUtils {
 
   /// 显示升级弹窗（有升级数据的情况下）
   static void showCheckUpDialog({
-    required AppVersionEntity versionEntity,
     required BuildContext context,
     bool? isManualCall,
-  }) async{
-    if (_showDialogCompleter == null || _showDialogCompleter?.isCompleted == true) {
+    required bool mustUpgrade,
+    required String releaseUrl,
+    required int releaseCode,
+    String releaseDesc = '体验优化',
+  }) async {
+    if (_showDialogCompleter == null ||
+        _showDialogCompleter?.isCompleted == true) {
       LogUtils.instance.i('显示升级弹窗');
       _showDialogCompleter = Completer();
-      try{
+      try {
         await showDialog(
           context: context,
           barrierDismissible: false,
@@ -91,51 +89,38 @@ class CheckUpUtils {
               backgroundColor: Colors.transparent,
               insetPadding: const EdgeInsets.all(0),
               child: _CheckUpDialogChild(
-                versionEntity,
                 isManualCall: isManualCall,
+                releaseUrl: releaseUrl,
+                releaseDesc: releaseDesc,
+                releaseCode: releaseCode,
+                mustUpgrade: mustUpgrade,
               ),
             );
           },
         );
-      }catch(e,s){
-        LogUtils.instance.e('显示升级弹窗错误',e,s);
+      } catch (e, s) {
+        LogUtils.instance.e('显示升级弹窗错误', e, s);
       }
       _showDialogCompleter?.complete();
     }
-  }
-
-  /// 获取版本更新数据
-  static Future<AppVersionEntity?> _getCheckUpdateInfo() async {
-    final result = await HttpClientDio.instance
-        .get(NetWorkOption.instance.mainHostUrl + checkUpdateGet);
-    if (result.data == null) return null;
-    return AppVersionEntity.fromJson(result.data);
-
-  //   await Future.delayed(const Duration(milliseconds: 1500));
-  //   return AppVersionEntity(
-  //     releaseUrl: 'https://s.ling-shi.com/apk/zzt-latest.apk',
-  //     releaseDesc:
-  //     '''
-  // <h1>Heading 1</h1>
-  // <h2>Heading 2</h2>
-  // <h3>Heading 3</h3>
-  // <!-- anything goes here -->
-  // ''',
-  //     releaseCode: '1.3.0',
-  //     isForceUpgrade: 0,
-  //   );
   }
 }
 
 /// 版本升级弹窗内容
 class _CheckUpDialogChild extends StatefulWidget {
-  const _CheckUpDialogChild(
-    this.versionEntity, {
+  const _CheckUpDialogChild({
     Key? key,
     this.isManualCall,
+    required this.mustUpgrade,
+    required this.releaseUrl,
+    required this.releaseCode,
+    this.releaseDesc,
   }) : super(key: key);
-  final AppVersionEntity versionEntity;
   final bool? isManualCall;
+  final bool mustUpgrade;
+  final String releaseUrl;
+  final int releaseCode;
+  final String? releaseDesc;
 
   @override
   _CheckUpDialogChildState createState() => _CheckUpDialogChildState();
@@ -181,7 +166,7 @@ class _CheckUpDialogChildState extends State<_CheckUpDialogChild> {
     if (defaultTargetPlatform == TargetPlatform.iOS) {
       // 去AppStore
       CheckUpUtils.goIOSAppleStore();
-      if (!widget.versionEntity.mustUpgrade) {
+      if (!widget.mustUpgrade) {
         _closeSelf();
       }
     } else if (defaultTargetPlatform == TargetPlatform.android) {
@@ -192,7 +177,7 @@ class _CheckUpDialogChildState extends State<_CheckUpDialogChild> {
         final downLoadApkSuccess =
             await StorageUtils.getBool(_downLoadApkSuccess);
         final afterSavePath = await FileUtils.instance.download(
-          widget.versionEntity.releaseUrl,
+          widget.releaseUrl,
           context: context,
           saveFilePath: apkSavePath,
           cancelToken: _cancelToken,
@@ -219,8 +204,7 @@ class _CheckUpDialogChildState extends State<_CheckUpDialogChild> {
   /// android 获取apk保存路径
   Future<String> _getApkSavePath() async {
     var saveDir = await getTemporaryDirectory();
-    return path.join(
-        saveDir.path, 'app_v${widget.versionEntity.releaseCode}.apk');
+    return path.join(saveDir.path, 'app_v${widget.releaseCode}.apk');
   }
 
   /// android 下载apk进度回调
@@ -244,7 +228,7 @@ class _CheckUpDialogChildState extends State<_CheckUpDialogChild> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return !widget.versionEntity.mustUpgrade;
+        return !widget.mustUpgrade;
       },
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -256,10 +240,10 @@ class _CheckUpDialogChildState extends State<_CheckUpDialogChild> {
               Stack(
                 clipBehavior: Clip.none,
                 children: [
-                   SizedBox(
-                     width: 301,
-                     height: 357,
-                     child: DecoratedBox(
+                  SizedBox(
+                    width: 301,
+                    height: 357,
+                    child: DecoratedBox(
                       decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -267,9 +251,9 @@ class _CheckUpDialogChildState extends State<_CheckUpDialogChild> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const SizedBox(height: 173-72),
+                          const SizedBox(height: 173 - 72),
                           Text(
-                            '发现新版本，${widget.versionEntity.releaseCode}来啦',
+                            '发现新版本，${widget.releaseCode}来啦',
                             style: const TextStyle(
                               fontSize: 16,
                               color: ColorHelper.colorTextBlack1,
@@ -288,7 +272,7 @@ class _CheckUpDialogChildState extends State<_CheckUpDialogChild> {
                                 ),
                                 physics: const BouncingScrollPhysics(),
                                 child: HtmlWidget(
-                                  widget.versionEntity.releaseDesc ?? '',
+                                  widget.releaseDesc ?? '',
                                 ),
                                 /*child: Text(
                                   widget.versionEntity.releaseDesc ?? '',
@@ -317,7 +301,7 @@ class _CheckUpDialogChildState extends State<_CheckUpDialogChild> {
                           ),
                           const SizedBox(height: 6),
                           Offstage(
-                            offstage: widget.versionEntity.mustUpgrade ||
+                            offstage: widget.mustUpgrade ||
                                 widget.isManualCall == true,
                             child: Padding(
                               padding:
@@ -338,8 +322,8 @@ class _CheckUpDialogChildState extends State<_CheckUpDialogChild> {
                           const SizedBox(height: 14),
                         ],
                       ),
+                    ),
                   ),
-                   ),
                   const Positioned(
                     top: -72,
                     // left: 0,
@@ -357,7 +341,7 @@ class _CheckUpDialogChildState extends State<_CheckUpDialogChild> {
                     top: 0,
                     right: 0,
                     child: Offstage(
-                      offstage: widget.versionEntity.mustUpgrade,
+                      offstage: widget.mustUpgrade,
                       child: IconButton(
                         onPressed: _closeSelf,
                         icon: const DefaultAssetImage(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lms_app/widget/theme_button.dart';
+
+import '../theme_button.dart';
 
 ///
 /// 状态按钮 （eg，点击刷新、点击登录等）

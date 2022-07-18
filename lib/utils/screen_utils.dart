@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lms_app/core/router/app_router_delegate.dart';
 
 /// 屏幕工具
 class ScreenUtils {
@@ -62,14 +61,12 @@ class ScreenUtils {
   static Size? getTextSize({
     required String text,
     required TextStyle style,
-    BuildContext? context,
+    required BuildContext context,
     int maxLines = 1,
   }) {
-    final tmpContext = context ?? AppRouterDelegate.getRouterContext;
-    if (tmpContext == null) return null;
     TextPainter painter = TextPainter(
       /// AUTO：华为手机如果不指定locale的时候，该方法算出来的文字高度是比系统计算偏小的。
-      locale: Localizations.localeOf(tmpContext),
+      locale: Localizations.localeOf(context),
       text: TextSpan(text: text, style: style),
       textDirection: TextDirection.ltr,
       maxLines: maxLines,

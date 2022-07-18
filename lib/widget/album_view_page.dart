@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:lms_app/widget/image/default_image.dart';
 
 import 'default_appbar.dart';
 import 'default_loading.dart';
+import 'image/default_image.dart';
 
 ///
 /// ViewPage 左右滑动方式浏览图片、视频
@@ -42,7 +42,7 @@ class AlbumViewPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _AlbumViewPageState createState() => _AlbumViewPageState();
+  State createState() => _AlbumViewPageState();
 }
 
 class _AlbumViewPageState extends State<AlbumViewPage>

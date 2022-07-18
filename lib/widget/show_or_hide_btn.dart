@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lms_app/utils/gesture.dart';
 
+import '../utils/gesture.dart';
 import 'image/default_image.dart';
 
 ///

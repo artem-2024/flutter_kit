@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lms_app/widget/dialog/default_tips_dialog.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+import '../widget/dialog/default_tips_dialog.dart';
 
 export 'package:permission_handler/permission_handler.dart'
     show Permission, PermissionStatus;

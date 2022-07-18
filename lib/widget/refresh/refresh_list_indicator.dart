@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lms_app/config/build_config.dart';
 
+import '../../flutter_kit.dart';
 import 'nested_scroll_view_refresh_indicator_null_safety.dart';
 
 /// 默认的下拉刷新头部

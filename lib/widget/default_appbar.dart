@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lms_app/config/build_config.dart';
-import 'package:lms_app/widget/image/default_image.dart';
-import '../core/main/app.dart';
-import '../core/router/app_router_delegate.dart';
-import '../utils/theme.dart';
 
+import '../core/base_app.dart';
+import '../flutter_kit.dart';
+import 'image/default_image.dart';
 ///
 /// 头部
 ///
@@ -165,7 +163,7 @@ class DefaultLeading extends StatelessWidget {
               onPopTap!.call();
               return;
             }
-            AppRouterDelegate.of().pop(null);
+            Navigator.of(context).maybePop();
           },
         );
       },
@@ -203,7 +201,7 @@ class DefaultCloseButton extends StatelessWidget {
             if (isExitApp == true) {
               exitApp();
             } else {
-              AppRouterDelegate.of().pop(null);
+              Navigator.of(context).maybePop();
             }
           },
     );
@@ -232,12 +230,10 @@ class DefaultTitleWidget extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
           style: textStyle ??
-              TextStyle(
+              const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
-                color: ThemeUtils.isDarkMode(context)
-                    ? Colors.white
-                    : ColorHelper.colorTextBlack1,
+                color: ColorHelper.colorTextBlack1,
               ),
         );
       },

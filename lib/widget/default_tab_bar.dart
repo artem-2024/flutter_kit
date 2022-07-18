@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lms_app/config/build_config.dart';
-import 'package:lms_app/flutter/tabs.dart' as extend;
+import '../flutter/tabs.dart' as extend;
+import '../flutter_kit.dart';
 
 ///
 /// 默认的TabBar
@@ -135,8 +135,10 @@ class DefaultTabIndicatorPainter extends BoxPainter {
     this.color = ColorHelper.colorTheme,
     this.width = 28,
   });
+
   final Color color;
   final double width;
+
   @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
     final Paint paint = Paint();

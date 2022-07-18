@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../config/build_config.dart';
+
+import '../flutter_kit.dart';
 
 /// 圆点
 class DotWidget extends StatelessWidget {

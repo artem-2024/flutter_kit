@@ -7,8 +7,6 @@ import 'package:flutter/foundation.dart';
 enum _LogLevel { verbose, debug, info, warning, error, wtf }
 
 class LogUtils {
-  /// 工厂模式
-  factory LogUtils() => _getInstance();
 
   /// 单例
   static LogUtils get instance => _getInstance();

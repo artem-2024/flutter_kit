@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lms_app/config/build_config.dart';
-import 'package:lms_app/widget/default_appbar.dart';
 
+import '../../flutter_kit.dart';
+import '../default_appbar.dart';
 import 'native_webview.dart';
 
 class CommonWebViewPage extends StatefulWidget {

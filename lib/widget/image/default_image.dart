@@ -1,6 +1,9 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 
+import '../../flutter_kit.dart';
+import '../../utils/logger.dart';
+
 /// 得到一个图片widget（注意：可能为null）
 Widget? getDefaultImage(
   String? imgUrl, {

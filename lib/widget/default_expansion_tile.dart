@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart' hide ExpansionTile;
-import 'package:lms_app/config/build_config.dart';
-import 'package:lms_app/flutter/expansion_tile.dart' as extend;
+import '../flutter/expansion_tile.dart' as extend;
+import '../flutter_kit.dart';
 
 ///
 /// 默认的伸缩控件

@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bugly/flutter_bugly.dart';
-import 'package:lms_app/utils/logger.dart';
+
+import 'logger.dart';
 
 ///
 /// 异常数据捕获

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lms_app/config/build_config.dart';
+
+import '../../flutter_kit.dart';
 
 /// 展示默认风格的提示dialog
 Future<bool?> showDefaultTipsDialog(

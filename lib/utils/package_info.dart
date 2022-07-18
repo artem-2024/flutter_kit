@@ -1,7 +1,8 @@
 import 'dart:io';
 
-import 'package:lms_app/utils/logger.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+
+import 'logger.dart';
 
 ///
 /// APP包信息工具类
@@ -10,8 +11,6 @@ class PackageInfoUtils {
   /// app包信息
   PackageInfo? _appPackageInfo;
 
-  /// 工厂模式
-  factory PackageInfoUtils() => _getInstance();
 
   /// 单例
   static PackageInfoUtils get instance => _getInstance();

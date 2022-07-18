@@ -1,13 +1,12 @@
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
-import 'package:lms_app/utils/logger.dart';
+
+import 'logger.dart';
 
 ///
 /// 设备信息工具类
 ///
 class DevicesInfoUtils {
-  /// 工厂模式
-  factory DevicesInfoUtils() => _getInstance();
 
   /// 单例
   static DevicesInfoUtils get instance => _getInstance();
@@ -23,6 +22,10 @@ class DevicesInfoUtils {
   /// 一般一次启动只获取一次
   String? _lastGetDeviceName;
   String? _lastGetSystemVersionStr;
+
+  Future<Map?> get deviceAllInfo async {
+    return (await DeviceInfoPlugin().deviceInfo).toMap();
+  }
 
   /// 获取系统版本名称，暂只支持android iOS
   Future<String?> get getSystemVersionStr async {

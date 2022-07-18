@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lms_app/config/build_config.dart';
-import 'package:lms_app/widget/view_state/empty_data_container.dart';
-import 'package:lms_app/widget/view_state/error_data_container.dart';
-import 'package:lms_app/widget/view_state/view_state_title.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 
+import '../../flutter_kit.dart';
 import '../default_loading.dart';
+import '../view_state/empty_data_container.dart';
+import '../view_state/error_data_container.dart';
+import '../view_state/view_state_title.dart';
 
 /// 自定义列表的加载状态
 class RefreshListViewState {

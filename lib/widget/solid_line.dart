@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lms_app/config/build_config.dart';
+
+import '../flutter_kit.dart';
 
 ///
 /// 实线

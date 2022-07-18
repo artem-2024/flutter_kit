@@ -1,9 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_kit/utils/permission_utils.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:lms_app/config/build_config.dart';
-import 'package:lms_app/utils/permission_utils.dart';
+
+import '../flutter_kit.dart';
 
 ///
 /// 图片工具类

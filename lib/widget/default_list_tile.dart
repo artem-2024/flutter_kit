@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lms_app/config/build_config.dart';
-import 'package:lms_app/utils/gesture.dart';
 
+import '../flutter_kit.dart';
+import '../utils/gesture.dart';
 import 'image/default_image.dart';
 
 ///
@@ -40,6 +40,7 @@ class DefaultListTile extends StatelessWidget {
 
   /// 是否显示右侧小箭头
   final bool showArrowRightIcon;
+
   /// 右侧小箭头颜色 （默认黑灰色）
   final Color? arrowRightIconColor;
 
@@ -51,7 +52,6 @@ class DefaultListTile extends StatelessWidget {
 
   /// 外边距
   final EdgeInsetsGeometry? margin;
-
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +95,7 @@ class DefaultListTile extends StatelessWidget {
                     child: rightText?.isNotEmpty == true
                         ? Text(
                             rightText!,
-                            style:  TextStyle(
+                            style: TextStyle(
                               fontSize: 12,
                               color: arrowRightIconColor ??
                                   ColorHelper.colorTextBlack2,

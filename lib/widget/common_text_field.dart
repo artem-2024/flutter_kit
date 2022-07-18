@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lms_app/config/build_config.dart';
 
+import '../flutter_kit.dart';
 import 'image/default_image.dart';
 
 ///
@@ -85,7 +85,7 @@ class CommonTextField extends StatefulWidget {
 
 
   @override
-  _CommonTextFieldState createState() => _CommonTextFieldState();
+  State createState() => _CommonTextFieldState();
 }
 
 class _CommonTextFieldState extends State<CommonTextField> {
@@ -257,7 +257,7 @@ class CommonPwdTextField extends StatefulWidget {
   final double horizontalPadding;
 
   @override
-  _CommonPwdTextFieldState createState() => _CommonPwdTextFieldState();
+  State createState() => _CommonPwdTextFieldState();
 }
 
 class _CommonPwdTextFieldState extends State<CommonPwdTextField> {

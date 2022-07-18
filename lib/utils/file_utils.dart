@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:lms_app/core/network/http.dart';
-import 'package:lms_app/utils/logger.dart';
+import '../core/network/http.dart';
+import 'logger.dart';
+import 'permission_utils.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
-import 'permission_utils.dart';
 
 /// 文件下载进度回调，[ratioStr] 百分比
 typedef OnFileDownloadProgress = void Function(
@@ -17,8 +17,6 @@ typedef OnFileDownloadProgress = void Function(
 /// 文件处理工具类
 ///
 class FileUtils {
-  /// 工厂模式
-  factory FileUtils() => _getInstance();
 
   /// 单例
   static FileUtils get instance => _getInstance();

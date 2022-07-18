@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart' hide ProgressIndicator;
-import 'package:lms_app/config/build_config.dart';
 import '../flutter/progress_indicator.dart' as extend;
-
+import '../flutter_kit.dart';
 ///
 /// 默认的圆形进度条
 ///

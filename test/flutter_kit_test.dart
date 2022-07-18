@@ -20,10 +20,9 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    FlutterKit flutterKitPlugin = FlutterKit();
     MockFlutterKitPlatform fakePlatform = MockFlutterKitPlatform();
     FlutterKitPlatform.instance = fakePlatform;
   
-    expect(await flutterKitPlugin.getPlatformVersion(), '42');
+    expect(await FlutterKit.getPlatformVersion(), '42');
   });
 }

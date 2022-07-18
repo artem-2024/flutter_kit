@@ -1,8 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:lms_app/config/build_config.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+
+import '../../flutter_kit.dart';
 
 typedef OnTitleCallback = Function(String title);
 
@@ -27,7 +28,7 @@ class NativeWebView extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _NativeWebViewState createState() => _NativeWebViewState();
+  State createState() => _NativeWebViewState();
 }
 
 class _NativeWebViewState extends State<NativeWebView> {

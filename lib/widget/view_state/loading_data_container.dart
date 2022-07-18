@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lms_app/config/build_config.dart';
-import 'package:lms_app/widget/default_loading.dart';
 
+import '../../flutter_kit.dart';
 import '../default_appbar.dart';
+import '../default_loading.dart';
 
 
 class LoadingDataContainer extends StatelessWidget {
