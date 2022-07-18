@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 
+import '../flutter_kit.dart';
 import '../utils/default_event_bus.dart';
 import '../widget/image/default_image.dart';
 import 'router/app_router_delegate.dart';
@@ -9,12 +10,12 @@ import 'router/app_router_information_parser.dart';
 
 /// Base App
 abstract class BassApp extends StatefulWidget {
-  final AppRouterDelegate _routerDelegate = AppRouterDelegate();
-  final AppRouterInformationParser _informationParser =
+  final AppRouterDelegate routerDelegate = AppRouterDelegate();
+  final AppRouterInformationParser informationParser =
       AppRouterInformationParser();
-  late final PlatformRouteInformationProvider
-      _platformRouteInformationProvider = PlatformRouteInformationProvider(
-    initialRouteInformation: const RouteInformation(location: '/'),
+  late final PlatformRouteInformationProvider platformRouteInformationProvider =
+      PlatformRouteInformationProvider(
+    initialRouteInformation: const RouteInformation(location: rootPath),
   );
 
   BassApp({Key? key}) : super(key: key);

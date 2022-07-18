@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import '../../flutter_kit.dart';
 import 'app_router_page.dart';
 
 class AppRouterDelegate extends RouterDelegate<RouteSettings>
@@ -169,6 +170,6 @@ class AppRouterDelegate extends RouterDelegate<RouteSettings>
 
   /// 只留其他首页，其他页面关闭
   Future<void> showRootPageOnly() =>
-      popWhere((element) => element.name != '/');
+      popWhere((element) => element.name != rootPath);
 
 }

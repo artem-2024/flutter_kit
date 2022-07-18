@@ -21,6 +21,8 @@ class FlutterKitConfig {
   final GetPageChild? getPageChild;
 }
 
+const String rootPath = "/";
+
 /// app IOS appleID
 const iOSAppleID = 'xxx';
 

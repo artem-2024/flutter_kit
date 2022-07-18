@@ -1,6 +1,6 @@
 # flutter_kit
 
-flutter项目的基础开发框架
+flutter项目的基础开发工具包
 
 ## plans
 
