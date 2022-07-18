@@ -77,7 +77,7 @@ class ViewStateModel with ChangeNotifier {
   void setError(e, s, {String? message}) {
     ViewStateErrorType errorType = ViewStateErrorType.defaultError;
     if (message != null && message != '') {
-      LogUtils.instance.e('setError = ' + message);
+      LogUtils.instance.e('setError = $message');
       s = message;
     } else {
       if (e is DioError) {

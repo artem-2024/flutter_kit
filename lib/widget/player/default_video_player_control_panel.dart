@@ -525,8 +525,8 @@ class DefaultVideoPlayerControlPanelState extends State<DefaultVideoPlayerContro
       height: (_isFullStatus && widget.isLive != true)
           ? 89
           : widget.bottomBarHeight,
-      child: body,
       isTop: false,
+      child: body,
     );
   }
 
