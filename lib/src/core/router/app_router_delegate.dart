@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../../flutter_kit.dart';
+import '../../utils/toast_utils.dart';
 import 'app_router_page.dart';
 
 class AppRouterDelegate extends RouterDelegate<RouteSettings>
@@ -64,21 +65,20 @@ class AppRouterDelegate extends RouterDelegate<RouteSettings>
   }
 
   /// 最近一次点击返回键事件，用于安卓点击2次退出app
-  // DateTime? _lastPressTime;
+  DateTime? _lastPressTime;
   @override
   Future<bool> popRoute() {
-    // if (_stack.length > 1) {
-    //   return super.popRoute();
-    // }
-    // if (Platform.isAndroid && _stack.first.name != splashPath) {
-    //   if (_lastPressTime == null ||
-    //       DateTime.now().difference(_lastPressTime!) >
-    //           const Duration(seconds: 1)) {
-    //     _lastPressTime = DateTime.now();
-    //     // ToastUtils.showText(text: "再按一次退出程序");
-    //     return SynchronousFuture<bool>(true);
-    //   }
-    // }
+    if (_stack.length <= 1 &&
+        defaultTargetPlatform == TargetPlatform.android &&
+        _stack.first.name == rootPath) {
+      if (_lastPressTime == null ||
+          DateTime.now().difference(_lastPressTime!) >
+              const Duration(seconds: 1)) {
+        _lastPressTime = DateTime.now();
+        ToastUtils.showText("再按一次退出程序");
+        return SynchronousFuture<bool>(true);
+      }
+    }
     return super.popRoute();
   }
 

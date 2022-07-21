@@ -7,7 +7,7 @@ import '../../../flutter_kit.dart';
 Future<bool?> showDefaultTipsDialog(
   BuildContext context, {
   String? contentText,
-  String title = '问下提示',
+  String title = '温馨提示',
   VoidCallback? confirm,
   VoidCallback? cancel,
   Widget? contentWidget,

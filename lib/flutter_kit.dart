@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 import 'flutter_kit_platform_interface.dart';
@@ -8,6 +9,7 @@ class FlutterKit {
   static Future<String?> getPlatformVersion() {
     return FlutterKitPlatform.instance.getPlatformVersion();
   }
+
   static FlutterKitConfig flutterKitConfig = FlutterKitConfig();
 }
 
@@ -16,9 +18,15 @@ typedef GetPageChild = Widget Function(
 
 /// 插件配置
 class FlutterKitConfig {
-  FlutterKitConfig({this.getPageChild});
+  FlutterKitConfig({
+    this.getPageChild,
+    this.exitByDoubleTapBackOnAndroid = true,
+  });
 
   final GetPageChild? getPageChild;
+
+  /// 在Android平台是否通过按两次返回键退出程序， default = true
+  final bool exitByDoubleTapBackOnAndroid;
 }
 
 const String rootPath = "/";
