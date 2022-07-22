@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import '../core/network/http.dart';
 import 'logger.dart';
 import 'permission_utils.dart';
 import 'package:path_provider/path_provider.dart';
@@ -33,6 +32,7 @@ class FileUtils {
   Future<String?> download(
     String? url, {
     required BuildContext context,
+    required Dio dio,
     String? saveFilePath,
     OnFileDownloadProgress? onProgress,
     ValueChanged<dynamic>? onErr,
@@ -88,7 +88,7 @@ class FileUtils {
       onWillDownloading?.call();
 
       // 开始下载
-      var response = await HttpClientDio.instance.downloadUri(
+      var response = await dio.downloadUri(
         Uri.parse(url!),
         saveFilePath,
         cancelToken: cancelToken,

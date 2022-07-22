@@ -37,6 +37,7 @@ class CheckUpUtils {
     required bool mustUpgrade,
     required String releaseUrl,
     required int releaseCode,
+    required Dio dio,
     String releaseDesc = '体验优化',
   }) async {
     // 不是手动调用 且 不是强制更新 就判断用户是否选择了不再提示更新
@@ -55,6 +56,7 @@ class CheckUpUtils {
       releaseCode: releaseCode,
       releaseDesc: releaseDesc,
       mustUpgrade: mustUpgrade,
+      dio: dio,
     );
   }
 
@@ -73,6 +75,7 @@ class CheckUpUtils {
     required bool mustUpgrade,
     required String releaseUrl,
     required int releaseCode,
+    required Dio dio,
     String releaseDesc = '体验优化',
   }) async {
     if (_showDialogCompleter == null ||
@@ -94,6 +97,7 @@ class CheckUpUtils {
                 releaseDesc: releaseDesc,
                 releaseCode: releaseCode,
                 mustUpgrade: mustUpgrade,
+                dio: dio,
               ),
             );
           },
@@ -115,12 +119,14 @@ class _CheckUpDialogChild extends StatefulWidget {
     required this.releaseUrl,
     required this.releaseCode,
     this.releaseDesc,
+    required this.dio,
   }) : super(key: key);
   final bool? isManualCall;
   final bool mustUpgrade;
   final String releaseUrl;
   final int releaseCode;
   final String? releaseDesc;
+  final Dio dio;
 
   @override
   _CheckUpDialogChildState createState() => _CheckUpDialogChildState();
@@ -178,6 +184,7 @@ class _CheckUpDialogChildState extends State<_CheckUpDialogChild> {
             await StorageUtils.getBool(_downLoadApkSuccess);
         final afterSavePath = await FileUtils.instance.download(
           widget.releaseUrl,
+          dio: widget.dio,
           context: context,
           saveFilePath: apkSavePath,
           cancelToken: _cancelToken,
