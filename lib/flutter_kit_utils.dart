@@ -19,3 +19,5 @@ export 'src/utils/storage.dart';
 export 'src/utils/string_util.dart';
 export 'src/utils/toast_utils.dart';
 
+export 'src/utils/check_up_utils.dart';
+

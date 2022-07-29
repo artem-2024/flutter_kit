@@ -34,9 +34,9 @@ class CheckUpUtils {
     ValueChanged<bool>? onShowLoading,
     bool showToastMsg = true,
     bool? isManualCall,
-    required bool mustUpgrade,
+    bool? mustUpgrade,
     required String releaseUrl,
-    required int releaseCode,
+    required String releaseCode,
     required Dio dio,
     String releaseDesc = '体验优化',
   }) async {
@@ -55,7 +55,7 @@ class CheckUpUtils {
       releaseUrl: releaseUrl,
       releaseCode: releaseCode,
       releaseDesc: releaseDesc,
-      mustUpgrade: mustUpgrade,
+      mustUpgrade: mustUpgrade == true,
       dio: dio,
     );
   }
@@ -72,9 +72,9 @@ class CheckUpUtils {
   static void showCheckUpDialog({
     required BuildContext context,
     bool? isManualCall,
-    required bool mustUpgrade,
+    bool? mustUpgrade,
     required String releaseUrl,
-    required int releaseCode,
+    required String releaseCode,
     required Dio dio,
     String releaseDesc = '体验优化',
   }) async {
@@ -96,7 +96,7 @@ class CheckUpUtils {
                 releaseUrl: releaseUrl,
                 releaseDesc: releaseDesc,
                 releaseCode: releaseCode,
-                mustUpgrade: mustUpgrade,
+                mustUpgrade: mustUpgrade == true,
                 dio: dio,
               ),
             );
@@ -124,7 +124,7 @@ class _CheckUpDialogChild extends StatefulWidget {
   final bool? isManualCall;
   final bool mustUpgrade;
   final String releaseUrl;
-  final int releaseCode;
+  final String releaseCode;
   final String? releaseDesc;
   final Dio dio;
 
