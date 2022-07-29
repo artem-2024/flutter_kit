@@ -17,7 +17,7 @@ class ThemeButton extends StatelessWidget {
     this.isDisableStatus = false,
     this.isUseDisableStyle = false,
     this.onTap,
-    this.textColor = Colors.white,
+    this.textColor,
     this.textFontSize = 16,
     this.padding = const EdgeInsets.symmetric(vertical: 7, horizontal: 30),
   }) : super(key: key);
@@ -48,7 +48,7 @@ class ThemeButton extends StatelessWidget {
   final VoidCallback? onTap;
 
   /// 按钮文字颜色
-  final Color textColor;
+  final Color? textColor;
 
   /// 按钮文字大小
   final double textFontSize;
@@ -80,14 +80,14 @@ class ThemeButton extends StatelessWidget {
             BoxDecoration(
               color: isDisableStatus || isUseDisableStyle
                   ? const Color(0xffD8DCDF)
-                  : const Color(0xff3572E1),
+                  : Theme.of(context).primaryColor,
               borderRadius:
                   BorderRadius.all(Radius.circular(tmpMinHeight / 2.0)),
               boxShadow: isDisableStatus || isUseDisableStyle
                   ? null
                   : [
                       BoxShadow(
-                        color: const Color(0xff3572E1).withOpacity(0.5),
+                        color: Theme.of(context).primaryColor.withOpacity(0.5),
                         blurRadius: 8,
                         offset: const Offset(0, 2),
                       ),

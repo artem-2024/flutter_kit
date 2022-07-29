@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 import 'flutter_kit_platform_interface.dart';
@@ -21,9 +20,12 @@ class FlutterKitConfig {
   FlutterKitConfig({
     this.getPageChild,
     this.exitByDoubleTapBackOnAndroid = true,
+    this.iOSAppId,
   });
 
   final GetPageChild? getPageChild;
+  /// iOS AppStore App id
+  final String? iOSAppId;
 
   /// 在Android平台是否通过按两次返回键退出程序， default = true
   final bool exitByDoubleTapBackOnAndroid;
@@ -31,8 +33,6 @@ class FlutterKitConfig {
 
 const String rootPath = "/";
 
-/// app IOS appleID
-const iOSAppleID = 'xxx';
 
 const defaultTabBarHeight = 40.0;
 const defaultLoadingMessage = '加载中';

@@ -2,21 +2,14 @@ import 'dart:async';
 
 import 'package:app_installer/app_installer.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+import 'package:flutter_kit/flutter_kit_utils.dart';
+import 'package:flutter_kit/src/utils/app_store_util.dart';
 
 import '../../flutter_kit.dart';
-import '../widget/image/default_image.dart';
-import '../widget/theme_button.dart';
-import 'file_utils.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
-
-import 'logger.dart';
-import 'storage.dart';
-import 'toast_utils.dart';
 
 /// 为true时表示不再主动提示更新
 const _noTipAgainKey = 'checkUp_noTipAgainKey';
@@ -38,7 +31,7 @@ class CheckUpUtils {
     required String releaseUrl,
     required String releaseCode,
     required Dio dio,
-    String releaseDesc = '体验优化',
+    String? releaseDesc,
   }) async {
     // 不是手动调用 且 不是强制更新 就判断用户是否选择了不再提示更新
     if (isManualCall != true && mustUpgrade != true) {
@@ -60,11 +53,6 @@ class CheckUpUtils {
     );
   }
 
-  /// 跳转到iOS appStore并打开此App
-  static void goIOSAppleStore() async {
-    AppInstaller.goStore('', iOSAppleID);
-  }
-
   /// 升级弹窗是否显示完成
   static Completer? _showDialogCompleter;
 
@@ -76,7 +64,7 @@ class CheckUpUtils {
     required String releaseUrl,
     required String releaseCode,
     required Dio dio,
-    String releaseDesc = '体验优化',
+    String? releaseDesc,
   }) async {
     if (_showDialogCompleter == null ||
         _showDialogCompleter?.isCompleted == true) {
@@ -87,18 +75,13 @@ class CheckUpUtils {
           context: context,
           barrierDismissible: false,
           builder: (dialogContext) {
-            return Dialog(
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-              insetPadding: const EdgeInsets.all(0),
-              child: _CheckUpDialogChild(
-                isManualCall: isManualCall,
-                releaseUrl: releaseUrl,
-                releaseDesc: releaseDesc,
-                releaseCode: releaseCode,
-                mustUpgrade: mustUpgrade == true,
-                dio: dio,
-              ),
+            return _DefaultUpgradeUI(
+              isManualCall: isManualCall,
+              releaseUrl: releaseUrl,
+              releaseDesc: releaseDesc,
+              releaseCode: releaseCode,
+              mustUpgrade: mustUpgrade == true,
+              dio: dio,
             );
           },
         );
@@ -110,29 +93,8 @@ class CheckUpUtils {
   }
 }
 
-/// 版本升级弹窗内容
-class _CheckUpDialogChild extends StatefulWidget {
-  const _CheckUpDialogChild({
-    Key? key,
-    this.isManualCall,
-    required this.mustUpgrade,
-    required this.releaseUrl,
-    required this.releaseCode,
-    this.releaseDesc,
-    required this.dio,
-  }) : super(key: key);
-  final bool? isManualCall;
-  final bool mustUpgrade;
-  final String releaseUrl;
-  final String releaseCode;
-  final String? releaseDesc;
-  final Dio dio;
-
-  @override
-  _CheckUpDialogChildState createState() => _CheckUpDialogChildState();
-}
-
-class _CheckUpDialogChildState extends State<_CheckUpDialogChild> {
+/// 封装了app版本更新逻辑
+mixin UploadAppLogicMixin<T extends StatefulWidget> on State<T> {
   /// 可取消下载
   CancelToken? _cancelToken;
 
@@ -147,6 +109,18 @@ class _CheckUpDialogChildState extends State<_CheckUpDialogChild> {
 
   /// ‘确定‘ 按钮的文字
   late final ValueNotifier<String> _confirmTextStr = ValueNotifier('立即更新');
+
+  /// 是否强制更新
+  bool get mustUpgrade;
+
+  /// 更新地址 可能是安装包下载地址 也可能是软件商店地址
+  String get releaseUrl;
+
+  /// 下载用的dio
+  Dio get dio;
+
+  /// 最新的版本号
+  String get releaseCode;
 
   @override
   void initState() {
@@ -171,8 +145,8 @@ class _CheckUpDialogChildState extends State<_CheckUpDialogChild> {
   Future<void> _checkUpNow() async {
     if (defaultTargetPlatform == TargetPlatform.iOS) {
       // 去AppStore
-      CheckUpUtils.goIOSAppleStore();
-      if (!widget.mustUpgrade) {
+      AppStoreUtil.goStore(iOSAppId: FlutterKit.flutterKitConfig.iOSAppId);
+      if (mustUpgrade) {
         _closeSelf();
       }
     } else if (defaultTargetPlatform == TargetPlatform.android) {
@@ -183,8 +157,8 @@ class _CheckUpDialogChildState extends State<_CheckUpDialogChild> {
         final downLoadApkSuccess =
             await StorageUtils.getBool(_downLoadApkSuccess);
         final afterSavePath = await FileUtils.instance.download(
-          widget.releaseUrl,
-          dio: widget.dio,
+          releaseUrl,
+          dio: dio,
           context: context,
           saveFilePath: apkSavePath,
           cancelToken: _cancelToken,
@@ -211,7 +185,7 @@ class _CheckUpDialogChildState extends State<_CheckUpDialogChild> {
   /// android 获取apk保存路径
   Future<String> _getApkSavePath() async {
     var saveDir = await getTemporaryDirectory();
-    return path.join(saveDir.path, 'app_v${widget.releaseCode}.apk');
+    return path.join(saveDir.path, 'app_v$releaseCode.apk');
   }
 
   /// android 下载apk进度回调
@@ -230,140 +204,78 @@ class _CheckUpDialogChildState extends State<_CheckUpDialogChild> {
     LogUtils.instance.d("安装apk savePath = $savePath");
     AppInstaller.installApk(savePath);
   }
+}
+
+/// 默认的更新弹窗UI
+class _DefaultUpgradeUI extends StatefulWidget {
+  const _DefaultUpgradeUI({
+    Key? key,
+    this.isManualCall,
+    required this.mustUpgrade,
+    required this.releaseUrl,
+    required this.releaseCode,
+    this.releaseDesc,
+    required this.dio,
+  }) : super(key: key);
+  final bool? isManualCall;
+  final bool mustUpgrade;
+  final String releaseUrl;
+  final String releaseCode;
+  final String? releaseDesc;
+  final Dio dio;
+
+  @override
+  State<_DefaultUpgradeUI> createState() => _DefaultUpgradeUIState();
+}
+
+class _DefaultUpgradeUIState extends State<_DefaultUpgradeUI>
+    with UploadAppLogicMixin {
+  @override
+  Dio get dio => widget.dio;
+
+  @override
+  bool get mustUpgrade => widget.mustUpgrade;
+
+  @override
+  String get releaseCode => widget.releaseCode;
+
+  @override
+  String get releaseUrl => widget.releaseUrl;
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return !widget.mustUpgrade;
+        return !mustUpgrade;
       },
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Spacer(),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  SizedBox(
-                    width: 301,
-                    height: 357,
-                    child: DecoratedBox(
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const SizedBox(height: 173 - 72),
-                          Text(
-                            '发现新版本，${widget.releaseCode}来啦',
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: ColorHelper.colorTextBlack1,
-                              fontWeight: fontWeight,
-                            ),
-                          ),
-                          const SizedBox(height: 12),
-                          // 更新内容
-                          Expanded(
-                            child: CupertinoScrollbar(
-                              child: SingleChildScrollView(
-                                padding: const EdgeInsets.only(
-                                  left: 16,
-                                  right: 16,
-                                  bottom: 12,
-                                ),
-                                physics: const BouncingScrollPhysics(),
-                                child: HtmlWidget(
-                                  widget.releaseDesc ?? '',
-                                ),
-                                /*child: Text(
-                                  widget.versionEntity.releaseDesc ?? '',
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    color: ColorHelper.colorTextBlack1,
-                                  ),
-                                ),*/
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 14),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: ValueListenableBuilder<String>(
-                              valueListenable: _confirmTextStr,
-                              builder: (_, str, __) {
-                                return ThemeButton(
-                                  str,
-                                  width: double.infinity,
-                                  textFontSize: 14,
-                                  onTap: _checkUpNow,
-                                );
-                              },
-                            ),
-                          ),
-                          const SizedBox(height: 6),
-                          Offstage(
-                            offstage: widget.mustUpgrade ||
-                                widget.isManualCall == true,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: ThemeButton(
-                                '不再提示',
-                                width: double.infinity,
-                                decoration: const BoxDecoration(),
-                                textColor: ColorHelper.colorTextBlack2,
-                                textFontSize: 14,
-                                onTap: () {
-                                  StorageUtils.setBool(_noTipAgainKey, true);
-                                  _closeSelf();
-                                },
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 14),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const Positioned(
-                    top: -72,
-                    // left: 0,
-                    // right: 0,
-                    child: SizedBox(
-                      width: 301,
-                      height: 173,
-                      child: DefaultAssetImage(
-                        'assets/images/icon_check_up_bg.png',
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    child: Offstage(
-                      offstage: widget.mustUpgrade,
-                      child: IconButton(
-                        onPressed: _closeSelf,
-                        icon: const DefaultAssetImage(
-                          'assets/images/icon_clean_gray.png',
-                          width: 22,
-                          height: 22,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
+      child: AlertDialog(
+        title: Text('发现新版本，$releaseCode来啦'),
+        content: Text(widget.releaseDesc?.trim().isNotEmpty == true
+            ? widget.releaseDesc!
+            : 'Fixed some bugs'),
+        actions: [
+          if (!mustUpgrade && widget.isManualCall != true)
+            TextButton(
+              onPressed: () {
+                StorageUtils.setBool(_noTipAgainKey, true);
+                _closeSelf();
+              },
+              child: const Text('不再提示'),
+            ),
+          if (!mustUpgrade)
+            TextButton(
+              onPressed: _closeSelf,
+              child: const Text('取消'),
+            ),
+          TextButton(
+            onPressed: _checkUpNow,
+            child: ValueListenableBuilder<String>(
+              valueListenable: _confirmTextStr,
+              builder: (_, str, __) {
+                return Text(str);
+              },
+            ),
           ),
-          const Spacer(),
         ],
       ),
     );
