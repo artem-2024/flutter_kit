@@ -59,9 +59,6 @@ const String emptyAssetBundleUrl = "assets/images/common/empty_data.png";
 /// 默认的返回按钮Icon
 const String defaultLeadingIcon = "assets/images/common/icon_arrow_left.png";
 
-/// 图片未加载成功显示的占位图地址
-const String imageLoadFiledBundleUrl =
-    "assets/images/common/icon_image_load_filed.png";
 
 /// 空数据提示
 const String emptyDataMessage = '暂无相关数据';

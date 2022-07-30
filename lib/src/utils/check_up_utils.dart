@@ -28,8 +28,8 @@ class CheckUpUtils {
     bool showToastMsg = true,
     bool? isManualCall,
     bool? mustUpgrade,
-    required String releaseUrl,
-    required String releaseCode,
+    String? releaseUrl,
+    String? releaseCode,
     required Dio dio,
     String? releaseDesc,
   }) async {
@@ -61,8 +61,8 @@ class CheckUpUtils {
     required BuildContext context,
     bool? isManualCall,
     bool? mustUpgrade,
-    required String releaseUrl,
-    required String releaseCode,
+    String? releaseUrl,
+    String? releaseCode,
     required Dio dio,
     String? releaseDesc,
   }) async {
@@ -114,13 +114,13 @@ mixin UploadAppLogicMixin<T extends StatefulWidget> on State<T> {
   bool get mustUpgrade;
 
   /// 更新地址 可能是安装包下载地址 也可能是软件商店地址
-  String get releaseUrl;
+  String? get releaseUrl;
 
   /// 下载用的dio
   Dio get dio;
 
   /// 最新的版本号
-  String get releaseCode;
+  String? get releaseCode;
 
   @override
   void initState() {
@@ -219,8 +219,8 @@ class _DefaultUpgradeUI extends StatefulWidget {
   }) : super(key: key);
   final bool? isManualCall;
   final bool mustUpgrade;
-  final String releaseUrl;
-  final String releaseCode;
+  final String? releaseUrl;
+  final String? releaseCode;
   final String? releaseDesc;
   final Dio dio;
 
@@ -237,10 +237,10 @@ class _DefaultUpgradeUIState extends State<_DefaultUpgradeUI>
   bool get mustUpgrade => widget.mustUpgrade;
 
   @override
-  String get releaseCode => widget.releaseCode;
+  String? get releaseCode => widget.releaseCode;
 
   @override
-  String get releaseUrl => widget.releaseUrl;
+  String? get releaseUrl => widget.releaseUrl;
 
   @override
   Widget build(BuildContext context) {
