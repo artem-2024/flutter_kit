@@ -8,8 +8,6 @@ class EmptyDataContainer extends StatelessWidget {
   /// 标题
   final String title;
 
-  /// assets bundle图片ur;
-  final String assetBundleUrl;
 
   final bool showHeader;
 
@@ -18,7 +16,6 @@ class EmptyDataContainer extends StatelessWidget {
   const EmptyDataContainer({
     Key? key,
     this.title = emptyDataMessage,
-    this.assetBundleUrl = emptyAssetBundleUrl,
     this.showHeader = false,
     this.backgroundColor = Colors.white,
   }) : super(key: key);

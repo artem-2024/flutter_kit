@@ -122,7 +122,7 @@ class DefaultSliverLeading extends StatelessWidget {
         return settings?.isScrolledUnder == true
             ? const DefaultLeading()
             : const DefaultLeading(
-                iconAsset: 'assets/images/common/icon_arrow_left_with_bg.png',
+                // iconAsset: 'assets/images/common/icon_arrow_left_with_bg.png',
                 iconSize: Size(28, 28),
               );
       },
@@ -136,38 +136,46 @@ class DefaultSliverLeading extends StatelessWidget {
 class DefaultLeading extends StatelessWidget {
   const DefaultLeading({
     Key? key,
-    this.iconAsset = defaultLeadingIcon,
     this.iconSize = const Size(9, 15),
     this.iconColor,
     this.onPopTap,
   }) : super(key: key);
-  final String iconAsset;
   final Size iconSize;
   final Color? iconColor;
   final VoidCallback? onPopTap;
 
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (BuildContext context) {
-        return IconButton(
-          tooltip: null,
-          icon: DefaultAssetImage(
-            iconAsset,
-            width: iconSize.width,
-            height: iconSize.height,
-            color: iconColor,
-          ),
-          onPressed: () {
-            if (onPopTap != null) {
-              onPopTap!.call();
-              return;
-            }
-            Navigator.of(context).maybePop();
-          },
-        );
+    return BackButton(
+      color: iconColor,
+      onPressed: () {
+        if (onPopTap != null) {
+          onPopTap!.call();
+          return;
+        }
+        Navigator.of(context).maybePop();
       },
     );
+    // return Builder(
+    //   builder: (BuildContext context) {
+    //     return IconButton(
+    //       tooltip: 'back',
+    //       icon: DefaultAssetImage(
+    //         iconAsset,
+    //         width: iconSize.width,
+    //         height: iconSize.height,
+    //         color: iconColor,
+    //       ),
+    //       onPressed: () {
+    //         if (onPopTap != null) {
+    //           onPopTap!.call();
+    //           return;
+    //         }
+    //         Navigator.of(context).maybePop();
+    //       },
+    //     );
+    //   },
+    // );
   }
 }
 

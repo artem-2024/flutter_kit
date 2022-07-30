@@ -9,8 +9,6 @@ class ErrorDataContainer extends StatelessWidget {
   /// 标题
   final String? title;
 
-  /// assets bundle图片ur;
-  final String assetBundleUrl;
 
   /// 按钮文字
   final String btnText;
@@ -22,7 +20,6 @@ class ErrorDataContainer extends StatelessWidget {
   const ErrorDataContainer({
     Key? key,
     this.title,
-    this.assetBundleUrl = errorAssetBundleUrl,
     this.onRefresh,
     this.showHeader = false,
     this.btnText = '刷新一下',

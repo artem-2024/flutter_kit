@@ -27,7 +27,7 @@ class ComponentEmptyContainer extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children:  [
             const SizedBox(height: 4),
-            const DefaultAssetImage(emptyAssetBundleUrl,width: 49,height: 49),
+            const Icon(Icons.find_in_page_outlined,size: 49,),
             const SizedBox(height: 12),
             Wrap(
               children:  [

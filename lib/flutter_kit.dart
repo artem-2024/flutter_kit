@@ -50,16 +50,6 @@ const Color defaultAppBarShadowColor = ColorHelper.colorLine;
 /// 默认的错误提示
 const String errorMessage = '哎呀，网络开小差了';
 
-/// 存储于对应的错误数据图片
-const String errorAssetBundleUrl = "assets/images/common/error_data.png";
-
-/// 存储于对应的空数据图片地址
-const String emptyAssetBundleUrl = "assets/images/common/empty_data.png";
-
-/// 默认的返回按钮Icon
-const String defaultLeadingIcon = "assets/images/common/icon_arrow_left.png";
-
-
 /// 空数据提示
 const String emptyDataMessage = '暂无相关数据';
 

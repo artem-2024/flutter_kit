@@ -109,41 +109,6 @@ Widget getDefaultNetWorkImage(String? imgUrl, {
   return imgWidget;
 }
 
-/// 网图添加oss压缩策略
-String? appendAliOSSStyle(String? imgUrl) {
-  //
-  // // 不处理空字符
-  // if (imgUrl?.isNotEmpty != true) return imgUrl;
-  //
-  // // 需要处理的OSS域名
-  // List<String>? ossDomainList = SaasModel.instance.ossImageDomainList;
-  // // 默认处理
-  // if(ossDomainList?.isNotEmpty!=true){
-  //   ossDomainList = ['aliyuncs.com'];
-  // }
-  // // 需要添加的OSS样式
-  // String? ossStyle = SaasModel.instance.ossImageStyleStr;
-  // // 默认处理
-  // if(ossStyle?.isNotEmpty!=true){
-  //   ossStyle = 'x-oss-process=image/auto-orient,1/resize,m_lfit,w_1125/quality,q_90/format,webp';
-  // }
-
-
-  // http://zztlive.oss-cn-guangzhou.aliyuncs.com/upload/20211207/6064669b412b4a7fb7abf26f14be2d09.jpg size=1491840
-/*
-  if (imgUrl?.contains('aliyuncs.com') != true) {
-    return imgUrl;
-  }
-  String style =
-      'x-oss-process=image/auto-orient,1/resize,m_lfit,w_1125/quality,q_90/format,webp';
-
-  if (imgUrl!.contains('?')) {
-    imgUrl = imgUrl + '&$style';
-  } else {
-    imgUrl = imgUrl + '?$style';
-  }*/
-  return imgUrl;
-}
 
 /// App默认图片加载错误显示的widget
 class DefaultImageFiledWidget extends StatelessWidget {
