@@ -1,5 +1,7 @@
 library flutter_kit_utils;
 
+export 'package:url_launcher/url_launcher.dart';
+
 export 'src/utils/cache_util.dart';
 export 'src/utils/check_up_utils.dart';
 export 'src/utils/crash_analysis.dart';
