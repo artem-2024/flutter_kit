@@ -110,15 +110,17 @@ class RefreshList<T> extends StatefulWidget {
 }
 
 class RefreshListState<T> extends State<RefreshList<T>> {
-  //数据源
+  /// 数据源
   late RefreshListDataSource<T> _refreshListDataSource;
 
-  //列表的加载状态
+  /// 列表的加载状态
   late RefreshListViewState _refreshListViewState;
 
-  //下拉刷新的State Key
+  /// 下拉刷新的State Key
   GlobalKey<RefreshIndicatorState>? _refreshKey;
 
+  /// 滚动控制
+  late final _scrollController = widget.scrollController ?? ScrollController();
   @override
   void initState() {
     super.initState();
@@ -149,6 +151,7 @@ class RefreshListState<T> extends State<RefreshList<T>> {
 
   @override
   void dispose() {
+    _scrollController.dispose();
     if (widget.needClearPhotoCache == true) {
       _clearPhotosMemory();
     }
@@ -217,7 +220,7 @@ class RefreshListState<T> extends State<RefreshList<T>> {
       ListConfig<T>(
         padding: widget.padding,
         physics: widget.physics ?? _defaultPhysics,
-        controller: widget.scrollController,
+        controller: _scrollController,
         shrinkWrap: true,
         showGlowTrailing: false,
         showGlowLeading: false,
@@ -267,7 +270,7 @@ class RefreshListState<T> extends State<RefreshList<T>> {
     }
 
     return LoadingMoreCustomScrollView(
-      controller: widget.scrollController,
+      controller: _scrollController,
       showGlowLeading: false,
       showGlowTrailing: false,
       rebuildCustomScrollView: true,
