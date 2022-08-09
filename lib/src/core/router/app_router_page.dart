@@ -47,7 +47,7 @@ Page<dynamic> getPage(
         child: child,
         name: name,
         arguments: params,
-        transitionsBuilder: customTransitionsBuilder!,
+        transitionsBuilder: customTransitionsBuilder,
       );
   }
 }
