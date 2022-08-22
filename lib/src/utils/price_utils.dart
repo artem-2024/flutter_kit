@@ -60,7 +60,7 @@ class DefaultPriceWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget child;
-    final isFree = num.tryParse(sellPrice ?? '') == 0;
+    final isFree = num.tryParse(sellPrice ?? '0') == 0;
     if (isFree) {
       child = Text(
         _defaultFreeStr,
@@ -102,6 +102,7 @@ class DefaultPriceWidget extends StatelessWidget {
               fontSize: sellPriceFontSize,
               fontWeight: shouldFontWeight ? fontWeight : null,
               color: sellPriceTextColor,
+              height: 1.1
             ),
           ),
           Offstage(
@@ -114,6 +115,7 @@ class DefaultPriceWidget extends StatelessWidget {
                   fontSize: originalPriceFontSize,
                   color: ColorHelper.colorTextBlack2,
                   decoration: TextDecoration.lineThrough,
+                  height: 1.1,
                 ),
               ),
             ),
