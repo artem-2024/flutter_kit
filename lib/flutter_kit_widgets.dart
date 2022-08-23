@@ -44,3 +44,9 @@ export 'src/widget/webview/common_webview_page.dart';
 export 'src/widget/webview/native_webview.dart';
 export 'package:webview_flutter/webview_flutter.dart';
 
+/// tabBar
+export 'src/widget/default_tab_bar.dart';
+
+export 'src/widget/solid_line.dart';
+
+export 'src/widget/default_expansion_tile.dart';
