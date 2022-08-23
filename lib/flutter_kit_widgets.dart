@@ -18,8 +18,9 @@ export 'src/widget/dialog/default_tips_dialog.dart';
 export 'src/widget/image/default_image.dart';
 export 'src/widget/image/frame_animation_image.dart';
 
-/// 播放器控制
+/// 播放器
 export 'src/widget/player/defalut_panel_progress_bar.dart';
+export 'src/widget/player/video_player_widget.dart';
 
 
 /// appBar
