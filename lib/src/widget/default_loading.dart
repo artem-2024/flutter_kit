@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart' hide ProgressIndicator;
 import '../flutter/progress_indicator.dart' as extend;
 import '../../flutter_kit.dart';
+
 ///
 /// 默认的圆形进度条
 ///
@@ -15,9 +16,9 @@ class DefaultCircularProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget child = const extend.CircularProgressIndicator(
+    Widget child = extend.CircularProgressIndicator(
       valueColor: AlwaysStoppedAnimation<Color>(
-        ColorHelper.colorTextTheme,
+        getColorTheme(context),
       ),
     );
     if (size != null) {

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import '../core/base_app.dart';
 import '../../flutter_kit.dart';
 import 'image/default_image.dart';
+
 ///
 /// 头部
 ///
@@ -30,7 +31,7 @@ class DefaultAppBar extends AppBar {
                 ),
             actions: actions,
             elevation: elevation,
-            shadowColor: defaultAppBarShadowColor,
+            shadowColor: const Color(0xffF4F5F7),
             systemOverlayStyle: systemOverlayStyle,
             flexibleSpace: background,
             backgroundColor: backgroundColor);
@@ -59,6 +60,7 @@ class DefaultSliverAppBar extends StatelessWidget {
   final double? expandedHeight;
   final SystemUiOverlayStyle? systemOverlayStyle;
   final Color? backgroundColor;
+
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
@@ -194,16 +196,18 @@ class DefaultCloseButton extends StatelessWidget {
   final bool isExitApp;
   final VoidCallback? onPressed;
   final double size;
+
   @override
   Widget build(BuildContext context) {
     return IconButton(
       tooltip: null,
-      icon: DefaultAssetImage(
-        'assets/images/common/icon_close.png',
-        width: size,
-        height: size,
-        color: iconColor,
-      ),
+      icon: Icon(Icons.clear,size: size,color: iconColor,),
+      // icon: DefaultAssetImage(
+      //   'assets/images/common/icon_close.png',
+      //   width: size,
+      //   height: size,
+      //   color: iconColor,
+      // ),
       onPressed: onPressed ??
           () {
             if (isExitApp == true) {
@@ -241,7 +245,6 @@ class DefaultTitleWidget extends StatelessWidget {
               const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
-                color: ColorHelper.colorTextBlack1,
               ),
         );
       },

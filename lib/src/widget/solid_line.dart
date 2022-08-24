@@ -13,7 +13,7 @@ class SolidLine extends StatelessWidget {
 
   const SolidLine.horizontal({
     Key? key,
-    this.color = ColorHelper.colorLine,
+    this.color =  const Color(0xffF4F5F7),
     this.size = const Size(double.infinity, .5),
     this.padding = const EdgeInsets.all(0),
   })  : direction = Axis.horizontal,
@@ -21,7 +21,7 @@ class SolidLine extends StatelessWidget {
 
   const SolidLine.vertical({
     Key? key,
-    this.color = ColorHelper.colorLine,
+    this.color = const Color(0xffF4F5F7),
     this.size = const Size(.5, double.infinity),
     this.padding = const EdgeInsets.all(0),
   })  : direction = Axis.vertical,

@@ -41,13 +41,14 @@ class ShowOrHideBtn extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 4),
-            DefaultAssetImage(
-              isHide
-                  ? 'assets/images/common/icon_arrow_down.png'
-                  : 'assets/images/common/icon_arrow_up.png',
-              width: 8,
-              height: 8,
-            ),
+            Icon(isHide?Icons.keyboard_arrow_down:Icons.keyboard_arrow_up,size: 8,)
+            // DefaultAssetImage(
+            //   isHide
+            //       ? 'assets/images/common/icon_arrow_down.png'
+            //       : 'assets/images/common/icon_arrow_up.png',
+            //   width: 8,
+            //   height: 8,
+            // ),
           ],
         ),
       ),

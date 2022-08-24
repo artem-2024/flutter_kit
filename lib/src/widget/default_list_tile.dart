@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../flutter_kit.dart';
+
 import '../utils/gesture.dart';
 import 'image/default_image.dart';
 
@@ -62,9 +62,9 @@ class DefaultListTile extends StatelessWidget {
         padding: padding,
         margin: margin,
         decoration: showBottomLine
-            ? const BoxDecoration(
+            ?  BoxDecoration(
                 border: Border(
-                  bottom: BorderSide(color: ColorHelper.colorLine),
+                  bottom: Divider.createBorderSide(context),
                 ),
               )
             : null,
@@ -85,7 +85,6 @@ class DefaultListTile extends StatelessWidget {
               label,
               style: const TextStyle(
                 fontSize: 14,
-                color: ColorHelper.colorTextBlack1,
               ),
             ),
             const Spacer(),
@@ -97,20 +96,19 @@ class DefaultListTile extends StatelessWidget {
                             rightText!,
                             style: TextStyle(
                               fontSize: 12,
-                              color: arrowRightIconColor ??
-                                  ColorHelper.colorTextBlack2,
+                              color: arrowRightIconColor
                             ),
                           )
                         : rightWidget,
                   )
                 : const SizedBox.shrink(),
             showArrowRightIcon
-                ? DefaultAssetImage(
+                ? const Icon(Icons.arrow_forward_ios_rounded,size: 8,)/*DefaultAssetImage(
                     'assets/images/common/icon_arrow_right.png',
                     width: 5,
                     height: 8,
                     color: arrowRightIconColor,
-                  )
+                  )*/
                 : const SizedBox.shrink(),
           ],
         ),

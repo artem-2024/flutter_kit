@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../flutter_kit.dart';
-import '../image/default_image.dart';
 
 /// 首页组件空数据状态时展示的内容
 class ComponentEmptyContainer extends StatelessWidget {
@@ -15,8 +14,10 @@ class ComponentEmptyContainer extends StatelessWidget {
   final VoidCallback? onTap;
   final String title;
   final String btnText;
+
   /// 是否显示按钮
   final bool showBtn;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -25,31 +26,32 @@ class ComponentEmptyContainer extends StatelessWidget {
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children:  [
+          children: [
             const SizedBox(height: 4),
-            const Icon(Icons.find_in_page_outlined,size: 49,),
+            const Icon(
+              Icons.find_in_page_outlined,
+              size: 49,
+            ),
             const SizedBox(height: 12),
             Wrap(
-              children:  [
+              children: [
                 Text(
                   title,
-                  style: const TextStyle(
-                      fontSize: 12, color: ColorHelper.colorTextBlack2),
+                  style: const TextStyle(fontSize: 12),
                 ),
                 Offstage(
                   offstage: showBtn != true,
                   child: const Text(
                     '，',
-                    style: TextStyle(
-                        fontSize: 12, color: ColorHelper.colorTextBlack2),
+                    style: TextStyle(fontSize: 12),
                   ),
                 ),
                 Offstage(
                   offstage: showBtn != true,
                   child: Text(
                     btnText,
-                    style: const TextStyle(
-                        fontSize: 12, color: ColorHelper.colorTextTheme),
+                    style:
+                        TextStyle(fontSize: 12, color: getColorTheme(context)),
                   ),
                 ),
               ],

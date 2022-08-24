@@ -51,7 +51,6 @@ class RefreshListViewState {
               "拼命加载中",
               style: TextStyle(
                 fontSize: 14,
-                color: ColorHelper.colorTextBlack1,
               ),
             )
           ],

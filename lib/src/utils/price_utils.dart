@@ -47,7 +47,7 @@ class DefaultPriceWidget extends StatelessWidget {
     this.prefixText,
     this.shouldFontWeight = true,
     this.originalPricePadding = const EdgeInsets.only(left: 4, bottom: 0),
-    this.sellPriceTextColor =  ColorHelper.colorTextPrice,
+    this.sellPriceTextColor =  const Color(0xffFF9900),
   }) : super(key: key);
   final String? sellPrice;
   final String? originalPrice;
@@ -67,7 +67,7 @@ class DefaultPriceWidget extends StatelessWidget {
         style: TextStyle(
           fontSize: sellPriceFontSize,
           fontWeight: shouldFontWeight ? fontWeight : null,
-          color: ColorHelper.colorTextPrice,
+          color: sellPriceTextColor,
         ),
       );
     }else{
@@ -113,7 +113,6 @@ class DefaultPriceWidget extends StatelessWidget {
                 showOriginalPrice != null ? '$_defaultPricePreFix$showOriginalPrice' : '',
                 style: TextStyle(
                   fontSize: originalPriceFontSize,
-                  color: ColorHelper.colorTextBlack2,
                   decoration: TextDecoration.lineThrough,
                   height: 1.1,
                 ),

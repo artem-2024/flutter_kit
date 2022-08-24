@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../flutter_kit.dart';
-import 'image/default_image.dart';
 
 ///
 /// 通用的输入框
@@ -23,7 +21,6 @@ class CommonTextField extends StatefulWidget {
     this.margin,
     this.maxLength = 300,
     this.onChanged,
-    this.style = const CommonTextFieldStyle.light(),
     this.otherLeft,
     this.autofocus = false,
     this.decoration,
@@ -62,8 +59,6 @@ class CommonTextField extends StatefulWidget {
   /// 输入内容发生改变
   final ValueChanged<String>? onChanged;
 
-  /// 输入框样式
-  final CommonTextFieldStyle style;
 
   /// 是否自动获取焦点 默认false
   final bool autofocus;
@@ -148,7 +143,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
               autofocus: widget.autofocus,
               style: TextStyle(
                 fontSize: widget.fontSize,
-                color: widget.style.textColor,
+                // color: widget.style.textColor,
                 letterSpacing: 1.2,
               ),
               inputFormatters: widget.inputFormatters,
@@ -163,14 +158,14 @@ class _CommonTextFieldState extends State<CommonTextField> {
               obscureText: widget.obscureText,
               maxLines: 1,
               maxLength: widget.maxLength,
-              cursorColor: widget.style.cursorColor,
+              // cursorColor: widget.style.cursorColor,
               decoration: InputDecoration(
                 border: const OutlineInputBorder(borderSide: BorderSide.none),
                 contentPadding: EdgeInsets.symmetric(horizontal: widget.horizontalPadding),
                 hintText: widget.hintText,
                 hintStyle: TextStyle(
                   fontSize: widget.fontSize,
-                  color: widget.style.hintTextColor,
+                  // color: widget.style.hintTextColor,
                 ),
                 counter: null,
                 counterText: '',
@@ -202,12 +197,13 @@ class _CommonTextFieldState extends State<CommonTextField> {
                       _textEditingController.clear();
                       widget.onChanged?.call('');
                     },
-                    icon: DefaultAssetImage(
-                      'assets/images/icon_clean.png',
-                      width: 18,
-                      height: 18,
-                      color: widget.style.iconColor,
-                    ),
+                    icon: const Icon(Icons.clear,size: 18,),
+                    // icon: DefaultAssetImage(
+                    //   'assets/images/icon_clean.png',
+                    //   width: 18,
+                    //   height: 18,
+                    //   color: widget.style.iconColor,
+                    // ),
                   ),
                 );
               }),
@@ -230,7 +226,6 @@ class CommonPwdTextField extends StatefulWidget {
     this.onChanged,
     this.textInputAction = TextInputAction.done,
     this.hintText = '请输入密码',
-    this.style = const CommonTextFieldStyle.light(),
     this.otherLeft,
     this.autofocus = false,
     this.horizontalPadding = 16,
@@ -247,8 +242,6 @@ class CommonPwdTextField extends StatefulWidget {
   /// 额外的左侧widget
   final Widget? otherLeft;
 
-  /// 输入框样式
-  final CommonTextFieldStyle style;
 
   /// 是否自动获取焦点 默认false
   final bool autofocus;
@@ -283,7 +276,6 @@ class _CommonPwdTextFieldState extends State<CommonPwdTextField> {
           horizontalPadding: widget.horizontalPadding,
           autofocus: widget.autofocus,
           otherLeft: widget.otherLeft,
-          style: widget.style,
           margin: widget.margin,
           textEditingController: widget.textEditingController,
           focusNode: widget.focusNode,
@@ -297,13 +289,7 @@ class _CommonPwdTextFieldState extends State<CommonPwdTextField> {
             onPressed: () {
               _showPwd.value = !_showPwd.value;
             },
-            icon: DefaultAssetImage(
-              isShowPwd == true
-                  ? 'assets/images/icon_eyes_open.png'
-                  : 'assets/images/icon_eyes_close.png',
-              width: 18,
-              height: 18,
-            ),
+            icon:  Icon(isShowPwd == true?Icons.remove_red_eye_outlined:Icons.panorama_fish_eye,size: 18,),
           ),
           onChanged: widget.onChanged,
         );
@@ -330,34 +316,12 @@ class CommonTextFieldLeftTextWidget extends StatelessWidget {
         text,
         style: const TextStyle(
           fontSize: 14,
-          color: ColorHelper.colorTextBlack1,
         ),
       ),
     );
   }
 }
 
-/// 输入框样式
-class CommonTextFieldStyle {
-  final Color textColor;
-  final Color hintTextColor;
-  final Color cursorColor;
-  final Color? iconColor;
-
-  const CommonTextFieldStyle.dart({
-    this.hintTextColor = Colors.white60,
-    this.textColor = Colors.white,
-    this.cursorColor = Colors.white,
-    this.iconColor,
-  });
-
-  const CommonTextFieldStyle.light({
-    this.hintTextColor = ColorHelper.colorTextBlack2,
-    this.textColor = ColorHelper.colorTextBlack1,
-    this.cursorColor = ColorHelper.colorTheme,
-    this.iconColor = ColorHelper.colorTextBlack2,
-  });
-}
 /*
 
     中文输入法统计正在编辑中文的过程中会统计英文，假如限制5个中文，当输入4个中文后，最后一个中文输入2个及以上英文时，会触发最大字数限制

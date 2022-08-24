@@ -50,4 +50,3 @@ export 'src/widget/default_tab_bar.dart';
 
 export 'src/widget/solid_line.dart';
 
-export 'src/widget/default_expansion_tile.dart';

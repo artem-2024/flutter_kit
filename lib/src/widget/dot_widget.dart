@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../flutter_kit.dart';
-
 /// 圆点
 class DotWidget extends StatelessWidget {
   const DotWidget({
     Key? key,
-    this.color = ColorHelper.colorTextTheme,
     this.size = 7,
+    this.color,
   }) : super(key: key);
-  final Color color;
+  final Color? color;
   final double size;
 
   @override
@@ -18,7 +16,7 @@ class DotWidget extends StatelessWidget {
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: color,
+        color: color ?? Theme.of(context).colorScheme.primary,
         shape: BoxShape.circle,
       ),
       duration: const Duration(milliseconds: 250),

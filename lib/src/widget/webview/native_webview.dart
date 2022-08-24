@@ -77,8 +77,8 @@ class _NativeWebViewState extends State<NativeWebView> {
               value: value,
               minHeight: 2,
               backgroundColor: Colors.transparent,
-              valueColor: const AlwaysStoppedAnimation<Color>(
-                ColorHelper.colorTextTheme,
+              valueColor:  AlwaysStoppedAnimation<Color>(
+                getColorTheme(context),
               ),
             );
           },

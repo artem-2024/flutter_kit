@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_kit/src/core/router/app_router_delegate.dart';
 
 import 'flutter_kit_platform_interface.dart';
 
@@ -29,6 +31,14 @@ class FlutterKitConfig {
 
   /// 在Android平台是否通过按两次返回键退出程序， default = true
   final bool exitByDoubleTapBackOnAndroid;
+
+}
+
+ColorScheme getColorScheme([BuildContext? context]) {
+  return Theme.of(context ?? AppRouterDelegate.getRouterContext!).colorScheme;
+}
+Color getColorTheme([BuildContext? context]){
+  return getColorScheme(context).primary;
 }
 
 const String rootPath = "/";
@@ -44,8 +54,8 @@ const double defaultAppBarHeight = 44;
 /// appBar 阴影
 const double defaultAppBarElevation = 0.5;
 
-/// appBar 投影颜色
-const Color defaultAppBarShadowColor = ColorHelper.colorLine;
+// /// appBar 投影颜色
+// const Color defaultAppBarShadowColor = ColorHelper.colorLine;
 
 /// 默认的错误提示
 const String errorMessage = '哎呀，网络开小差了';
@@ -59,19 +69,19 @@ const String unAuthMessage = '登录已失效,请重新登录';
 /// http请求代理，例如localhost:8888
 const String httpProxyClientHost = "";
 
-/// 常用颜色
-class ColorHelper {
-  ColorHelper._();
-
-  static const FontWeight fontWeight = FontWeight.w500;
-  static const Color colorTheme = Color(0xff3572E1);
-  static const Color colorTextTheme = Color(0xff3572E1);
-  static const Color colorTextBlack1 = Color(0xff00182D);
-
-  // 1.5
-  static const Color colorTextBlack1_5 = Color(0xff99A2AB);
-  static const Color colorTextBlack2 = Color(0xffBFC5CA);
-  static const Color colorWarn = Color(0xffF52821);
-  static const Color colorLine = Color(0xffF4F5F7);
-  static const Color colorTextPrice = Color(0xffFF9900);
-}
+// /// 常用颜色
+// class ColorHelper {
+//   ColorHelper._();
+//
+//   static const FontWeight fontWeight = FontWeight.w500;
+//   static const Color colorTheme = Color(0xff3572E1);
+//   static const Color colorTextTheme = Color(0xff3572E1);
+//   static const Color colorTextBlack1 = Color(0xff00182D);
+//
+//   // 1.5
+//   static const Color colorTextBlack1_5 = Color(0xff99A2AB);
+//   static const Color colorTextBlack2 = Color(0xffBFC5CA);
+//   static const Color colorWarn = Color(0xffF52821);
+//   static const Color colorLine = Color(0xffF4F5F7);
+//   static const Color colorTextPrice = Color(0xffFF9900);
+// }

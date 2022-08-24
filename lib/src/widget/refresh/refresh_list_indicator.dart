@@ -29,7 +29,7 @@ class RefreshListIndicator extends StatelessWidget {
     if (isNes == true) {
       return NestedScrollViewRefreshIndicator(
         key: refreshKey,
-        color: ColorHelper.colorTheme,
+        color: getColorTheme(context),
         backgroundColor: Colors.white,
         onRefresh: onRefresh,
         child: child,
@@ -37,7 +37,7 @@ class RefreshListIndicator extends StatelessWidget {
     }
     return RefreshIndicator(
       key: refreshKey,
-      color: ColorHelper.colorTheme,
+      color: getColorTheme(context),
       backgroundColor: Colors.white,
       onRefresh: onRefresh,
       child: child,

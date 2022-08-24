@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_kit/src/core/router/app_router_delegate.dart';
+import 'package:path/path.dart';
 import '../flutter/tabs.dart' as extend;
 import '../../flutter_kit.dart';
 
@@ -80,7 +82,7 @@ class DefaultTabBarContainer extends StatelessWidget {
         border: showBottomBorder == true
             ? Border(
                 bottom: BorderSide(
-                  color: bottomBorderColor ?? ColorHelper.colorLine,
+                  color: bottomBorderColor ?? const Color(0xffF4F5F7),
                 ),
               )
             : null,
@@ -125,14 +127,18 @@ class DefaultTabDecoration extends Decoration {
 
   @override
   BoxPainter createBoxPainter([VoidCallback? onChanged]) {
-    return indicatorPainter ?? DefaultTabIndicatorPainter();
+    return indicatorPainter ??
+        DefaultTabIndicatorPainter(
+            color: Theme.of(AppRouterDelegate.getRouterContext!)
+                .colorScheme
+                .primary);
   }
 }
 
 /// 默认tab指示器 - 绘制 - 底部线条样式
 class DefaultTabIndicatorPainter extends BoxPainter {
   DefaultTabIndicatorPainter({
-    this.color = ColorHelper.colorTheme,
+    required this.color,
     this.width = 28,
   });
 

@@ -62,13 +62,12 @@ class ImageUtils {
                       "拍照",
                       style: TextStyle(
                         fontSize: 14,
-                        color: ColorHelper.colorTextBlack1,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
                 ),
-                Container(color: ColorHelper.colorLine, height: 0.5),
+                const Divider(),
                 GestureDetector(
                   onTap: () {
                     Navigator.of(context).pop(2);
@@ -82,13 +81,12 @@ class ImageUtils {
                       "从相册选择",
                       style: TextStyle(
                         fontSize: 14,
-                        color: ColorHelper.colorTextBlack1,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
                 ),
-                Container(color: ColorHelper.colorLine, height: 0.5),
+                const Divider(),
                 GestureDetector(
                   onTap: () {
                     Navigator.of(context).pop();
@@ -102,7 +100,6 @@ class ImageUtils {
                       "取消",
                       style: TextStyle(
                           fontSize: 14,
-                          color: ColorHelper.colorTextBlack2,
                           fontWeight: FontWeight.w500),
                     ),
                   ),

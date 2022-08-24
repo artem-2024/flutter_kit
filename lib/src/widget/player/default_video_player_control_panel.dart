@@ -126,7 +126,8 @@ class DefaultVideoPlayerControlPanel extends StatefulWidget {
       DefaultVideoPlayerControlPanelState();
 }
 
-class DefaultVideoPlayerControlPanelState extends State<DefaultVideoPlayerControlPanel>
+class DefaultVideoPlayerControlPanelState
+    extends State<DefaultVideoPlayerControlPanel>
     with TickerProviderStateMixin {
   /// 面板动画控制器
   AnimationController? _animationController;
@@ -454,12 +455,16 @@ class DefaultVideoPlayerControlPanelState extends State<DefaultVideoPlayerContro
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         // 播放或暂停按钮
-        DefaultIconButton(
-          icon: widget.isPlaying
-              ? 'assets/images/common/icon_video_pause_small.png'
-              : 'assets/images/common/icon_video_play_small.png',
+        IconButton(
           onPressed: widget.onPlayOrPause,
+          icon: Icon(widget.isPlaying ? Icons.pause : Icons.play_arrow),
         ),
+        // DefaultIconButton(
+        //   icon: widget.isPlaying
+        //       ? 'assets/images/common/icon_video_pause_small.png'
+        //       : 'assets/images/common/icon_video_play_small.png',
+        //   onPressed: widget.onPlayOrPause,
+        // ),
         // 中间区域
         Expanded(
           child: widget.bottomBarChildWidget ??
@@ -496,13 +501,17 @@ class DefaultVideoPlayerControlPanelState extends State<DefaultVideoPlayerContro
 
         // 全屏/半屏切换按钮
         if (widget.showToggleOrientationBtn)
-          DefaultIconButton(
-            icon: _isFullStatus == true
-                ? 'assets/images/common/icon_video_16_9.png'
-                : 'assets/images/common/icon_video_full.png',
+          IconButton(
             onPressed: _toggleOrientation,
-            size: 40,
+            icon: Icon(_isFullStatus == true? Icons.fullscreen_exit : Icons.fullscreen),
           ),
+          // DefaultIconButton(
+          //   icon: _isFullStatus == true
+          //       ? 'assets/images/common/icon_video_16_9.png'
+          //       : 'assets/images/common/icon_video_full.png',
+          //   onPressed: _toggleOrientation,
+          //   size: 40,
+          // ),
       ],
     );
 
@@ -728,13 +737,19 @@ class DefaultVideoPlayerControlPanelState extends State<DefaultVideoPlayerContro
                     return Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        DefaultAssetImage(
+                        Icon(
+                          _isFullStatus == true
+                              ? Icons.fast_rewind
+                              : Icons.fast_forward,
+                          size: 40,
+                        ),
+                        /*DefaultAssetImage(
                           isLeft
                               ? 'assets/images/common/icon_drag_left.png'
                               : 'assets/images/common/icon_drag_right.png',
                           width: 40,
                           height: 32,
-                        ),
+                        ),*/
                         const SizedBox(height: 12),
                         Text(
                           '${_duration2String(dragPos)} / ${_duration2String(Duration(seconds: widget.duration ?? 0))}',
@@ -828,8 +843,9 @@ class DefaultVideoPlayerControlPanelState extends State<DefaultVideoPlayerContro
                           child: extend.LinearProgressIndicator(
                             value: dragValue,
                             backgroundColor: Colors.white54,
-                            valueColor: const AlwaysStoppedAnimation(
-                                ColorHelper.colorTheme),
+                            valueColor: AlwaysStoppedAnimation(
+                              Theme.of(context).colorScheme.primary,
+                            ),
                           ),
                         ),
                       ],
