@@ -21,6 +21,7 @@ export 'src/widget/image/frame_animation_image.dart';
 /// 播放器
 export 'src/widget/player/defalut_panel_progress_bar.dart';
 export 'src/widget/player/video_player_widget.dart';
+export 'src/widget/player/default_video_player_control_panel.dart';
 
 
 /// appBar
@@ -28,6 +29,7 @@ export 'src/widget/default_appbar.dart';
 
 /// 上下拉刷新
 export 'src/widget/refresh/refresh_list.dart';
+export 'src/widget/refresh/need_evict_network_image_mixin.dart';
 
 
 /// Banner
@@ -49,4 +51,5 @@ export 'package:webview_flutter/webview_flutter.dart';
 export 'src/widget/default_tab_bar.dart';
 
 export 'src/widget/solid_line.dart';
+export 'src/widget/draggable_window.dart';
 

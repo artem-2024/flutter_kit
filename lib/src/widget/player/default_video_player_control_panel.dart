@@ -9,10 +9,8 @@ import '../../../flutter_kit.dart';
 import '../../utils/logger.dart';
 import '../../utils/screen_utils.dart';
 import '../default_appbar.dart';
-import '../default_icon_button.dart';
 import '../default_loading.dart';
 import '../dialog/default_tips_dialog.dart';
-import '../image/default_image.dart';
 import 'defalut_panel_progress_bar.dart';
 import '../../flutter/progress_indicator.dart' as extend;
 
@@ -457,7 +455,7 @@ class DefaultVideoPlayerControlPanelState
         // 播放或暂停按钮
         IconButton(
           onPressed: widget.onPlayOrPause,
-          icon: Icon(widget.isPlaying ? Icons.pause : Icons.play_arrow),
+          icon: Icon(widget.isPlaying ? Icons.pause : Icons.play_arrow,color: Colors.white,),
         ),
         // DefaultIconButton(
         //   icon: widget.isPlaying
@@ -503,7 +501,7 @@ class DefaultVideoPlayerControlPanelState
         if (widget.showToggleOrientationBtn)
           IconButton(
             onPressed: _toggleOrientation,
-            icon: Icon(_isFullStatus == true? Icons.fullscreen_exit : Icons.fullscreen),
+            icon: Icon(_isFullStatus == true? Icons.fullscreen_exit : Icons.fullscreen,color: Colors.white,),
           ),
           // DefaultIconButton(
           //   icon: _isFullStatus == true
@@ -738,10 +736,11 @@ class DefaultVideoPlayerControlPanelState
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(
-                          _isFullStatus == true
+                          isLeft == true
                               ? Icons.fast_rewind
                               : Icons.fast_forward,
                           size: 40,
+                          color: Colors.white,
                         ),
                         /*DefaultAssetImage(
                           isLeft
@@ -750,7 +749,7 @@ class DefaultVideoPlayerControlPanelState
                           width: 40,
                           height: 32,
                         ),*/
-                        const SizedBox(height: 12),
+                        const SizedBox(height: 2),
                         Text(
                           '${_duration2String(dragPos)} / ${_duration2String(Duration(seconds: widget.duration ?? 0))}',
                           style: const TextStyle(
