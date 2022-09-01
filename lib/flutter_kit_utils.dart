@@ -4,7 +4,6 @@ export 'package:url_launcher/url_launcher.dart';
 
 export 'src/utils/cache_util.dart';
 export 'src/utils/check_up_utils.dart';
-export 'src/utils/crash_analysis.dart';
 export 'src/utils/date_convert_util.dart';
 export 'src/utils/default_event_bus.dart';
 export 'src/utils/devices_info.dart';
