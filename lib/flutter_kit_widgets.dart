@@ -53,3 +53,5 @@ export 'src/widget/default_tab_bar.dart';
 export 'src/widget/solid_line.dart';
 export 'src/widget/draggable_window.dart';
 
+export 'src/widget/transform_container.dart';
+
