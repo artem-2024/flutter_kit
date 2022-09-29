@@ -42,8 +42,6 @@ dependencies:
   event_bus: ^2.0.0
   # 一个全面的、跨平台的 Dart 路径操作库。path 包提供了操作路径的常用操作：加入、拆分、归一化等。
   path: ^1.8.1
-  # 异常上报
-  flutter_bugly: ^0.4.4
   # 安装apk、跳转AppStore的App页面或评价页
   app_installer: ^1.1.0
   webview_flutter: ^3.0.0
