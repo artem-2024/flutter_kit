@@ -9,6 +9,7 @@ export 'src/widget/animation/scale_animation.dart';
 export 'src/widget/badge/default_badge.dart';
 export 'src/widget/badge/default_badge_dot.dart';
 export 'src/widget/badge/default_badge_num_str.dart';
+export 'package:badges/badges.dart';
 
 
 /// 对话框
