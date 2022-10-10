@@ -26,7 +26,7 @@ class CommonTextField extends StatefulWidget {
     this.decoration,
     this.fontSize = 14,
     this.onSubmitted,
-    this.horizontalPadding = 16,
+    this.horizontalPadding = 0,
     this.clearOnSubmitted = true,
   }) : super(key: key);
   final TextEditingController? textEditingController;
@@ -129,8 +129,8 @@ class _CommonTextFieldState extends State<CommonTextField> {
           const BoxDecoration(
             border: Border(
               bottom: BorderSide(
-                width: 1,
-                color: Color(0xfff5f5f5),
+                width: 0.5,
+                color: Color(0xff666666),
               ),
             ),
           ),
@@ -163,10 +163,10 @@ class _CommonTextFieldState extends State<CommonTextField> {
                 border: const OutlineInputBorder(borderSide: BorderSide.none),
                 contentPadding: EdgeInsets.symmetric(horizontal: widget.horizontalPadding),
                 hintText: widget.hintText,
-                hintStyle: TextStyle(
-                  fontSize: widget.fontSize,
-                  // color: widget.style.hintTextColor,
-                ),
+                // hintStyle: TextStyle(
+                //   fontSize: widget.fontSize,
+                //   // color: widget.style.hintTextColor,
+                // ),
                 counter: null,
                 counterText: '',
                 hintMaxLines: 1,
@@ -228,7 +228,7 @@ class CommonPwdTextField extends StatefulWidget {
     this.hintText = '请输入密码',
     this.otherLeft,
     this.autofocus = false,
-    this.horizontalPadding = 16,
+    this.horizontalPadding = 0,
   }) : super(key: key);
 
   /// 外边距
@@ -289,7 +289,7 @@ class _CommonPwdTextFieldState extends State<CommonPwdTextField> {
             onPressed: () {
               _showPwd.value = !_showPwd.value;
             },
-            icon:  Icon(isShowPwd == true?Icons.remove_red_eye_outlined:Icons.panorama_fish_eye,size: 18,),
+            icon:  Icon(isShowPwd == true?Icons.remove_red_eye_outlined:Icons.remove_red_eye,size: 18,),
           ),
           onChanged: widget.onChanged,
         );
