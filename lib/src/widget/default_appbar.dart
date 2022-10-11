@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 
 import '../core/base_app.dart';
 import '../../flutter_kit.dart';
-import 'image/default_image.dart';
 
 ///
 /// 头部
