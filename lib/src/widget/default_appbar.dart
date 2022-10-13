@@ -242,7 +242,7 @@ class DefaultTitleWidget extends StatelessWidget {
           maxLines: 1,
           style: textStyle ??
               const TextStyle(
-                fontSize: 18,
+                fontSize: 21,
                 fontWeight: FontWeight.w500,
               ),
         );
