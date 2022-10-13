@@ -229,6 +229,7 @@ class CommonPwdTextField extends StatefulWidget {
     this.otherLeft,
     this.autofocus = false,
     this.horizontalPadding = 0,
+    this.decoration,
   }) : super(key: key);
 
   /// 外边距
@@ -248,6 +249,8 @@ class CommonPwdTextField extends StatefulWidget {
 
   /// 内容水平间距
   final double horizontalPadding;
+  /// 样式
+  final Decoration? decoration;
 
   @override
   State createState() => _CommonPwdTextFieldState();
@@ -292,6 +295,7 @@ class _CommonPwdTextFieldState extends State<CommonPwdTextField> {
             icon:  Icon(isShowPwd == true?Icons.remove_red_eye_outlined:Icons.remove_red_eye,size: 18,),
           ),
           onChanged: widget.onChanged,
+          decoration: widget.decoration,
         );
       },
     );
