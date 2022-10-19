@@ -48,6 +48,8 @@ class DefaultPriceWidget extends StatelessWidget {
     this.shouldFontWeight = true,
     this.originalPricePadding = const EdgeInsets.only(left: 4, bottom: 0),
     this.sellPriceTextColor =  const Color(0xffFF9900),
+    this.textBaseline,
+    this.crossAxisAlignment =  CrossAxisAlignment.end,
   }) : super(key: key);
   final String? sellPrice;
   final String? originalPrice;
@@ -57,6 +59,8 @@ class DefaultPriceWidget extends StatelessWidget {
   final bool shouldFontWeight;
   final EdgeInsetsGeometry originalPricePadding;
   final Color sellPriceTextColor;
+  final TextBaseline? textBaseline;
+  final CrossAxisAlignment crossAxisAlignment;
   @override
   Widget build(BuildContext context) {
     Widget child;
@@ -75,7 +79,8 @@ class DefaultPriceWidget extends StatelessWidget {
       final showOriginalPrice = formatPriceStr(originalPrice);
       child  = Row(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: crossAxisAlignment,
+        textBaseline:textBaseline,
         children: [
           Offstage(
             offstage: prefixText?.isNotEmpty != true,
