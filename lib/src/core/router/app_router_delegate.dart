@@ -97,6 +97,8 @@ class AppRouterDelegate extends RouterDelegate<RouteSettings>
     RouteStyle routeStyle = RouteStyle.iOS,
     RouteTransitionsBuilder? customTransitionsBuilder,
   }) async {
+    // 处理如果页面有输入框，且由于输入框仍然有焦点，关掉对话框，否则软键盘又会自动弹起的问题
+    FocusManager.instance.primaryFocus?.unfocus();
     if (_stack.isNotEmpty) {
       _stack.add(
         getPage(
