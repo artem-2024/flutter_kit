@@ -43,6 +43,7 @@ class DefaultSliverAppBar extends StatelessWidget {
   const DefaultSliverAppBar({
     Key? key,
     this.titleText,
+    this.title,
     this.actions,
     this.leading,
     this.elevation,
@@ -59,15 +60,17 @@ class DefaultSliverAppBar extends StatelessWidget {
   final double? expandedHeight;
   final SystemUiOverlayStyle? systemOverlayStyle;
   final Color? backgroundColor;
+  final Widget? title;
 
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
       pinned: true,
       stretch: true,
-      forceElevated: true,
+      forceElevated: false,
       leading: leading ?? const DefaultSliverLeading(),
       elevation: elevation,
+      actions: actions,
       toolbarHeight: defaultAppBarHeight,
       systemOverlayStyle: systemOverlayStyle,
       // backgroundColor: backgroundColor,
@@ -96,7 +99,7 @@ class DefaultSliverAppBar extends StatelessWidget {
                 .dependOnInheritedWidgetOfExactType<FlexibleSpaceBarSettings>();
             return Opacity(
               opacity: settings?.isScrolledUnder == true ? 1 : 0,
-              child: DefaultTitleWidget(
+              child: title??DefaultTitleWidget(
                 titleContent: titleText,
               ),
             );
