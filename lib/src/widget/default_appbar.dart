@@ -51,6 +51,7 @@ class DefaultSliverAppBar extends StatelessWidget {
     this.systemOverlayStyle,
     this.expandedHeight = 211,
     this.backgroundColor,
+    this.putBackgroundInFlexibleSpaceBar = true,
   }) : super(key: key);
   final String? titleText;
   final List<Widget>? actions;
@@ -61,6 +62,9 @@ class DefaultSliverAppBar extends StatelessWidget {
   final SystemUiOverlayStyle? systemOverlayStyle;
   final Color? backgroundColor;
   final Widget? title;
+
+  /// 是否用[FlexibleSpaceBar] 包裹[background] default = true
+  final bool putBackgroundInFlexibleSpaceBar;
 
   @override
   Widget build(BuildContext context) {
@@ -73,40 +77,43 @@ class DefaultSliverAppBar extends StatelessWidget {
       actions: actions,
       toolbarHeight: defaultAppBarHeight,
       systemOverlayStyle: systemOverlayStyle,
-      // backgroundColor: backgroundColor,
-      backgroundColor: MaterialStateColor.resolveWith(
-        (Set<MaterialState> states) {
+      backgroundColor: backgroundColor ?? MaterialStateColor.resolveWith(
+            (Set<MaterialState> states) {
           return states.contains(MaterialState.scrolledUnder)
               ? Colors.white
               : Colors.black;
         },
       ),
       expandedHeight: expandedHeight,
-      flexibleSpace: FlexibleSpaceBar(
-        stretchModes: const <StretchMode>[
-          StretchMode.zoomBackground,
-          StretchMode.fadeTitle,
-        ],
-        titlePadding: const EdgeInsets.only(
-          bottom: kToolbarHeight - defaultAppBarHeight,
-          left: 10,
-          right: 10,
-        ),
-        centerTitle: true,
-        title: Builder(
-          builder: (context) {
-            final FlexibleSpaceBarSettings? settings = context
-                .dependOnInheritedWidgetOfExactType<FlexibleSpaceBarSettings>();
-            return Opacity(
-              opacity: settings?.isScrolledUnder == true ? 1 : 0,
-              child: title??DefaultTitleWidget(
-                titleContent: titleText,
+      flexibleSpace: putBackgroundInFlexibleSpaceBar
+          ? FlexibleSpaceBar(
+              stretchModes: const <StretchMode>[
+                StretchMode.zoomBackground,
+                StretchMode.fadeTitle,
+              ],
+              titlePadding: const EdgeInsets.only(
+                bottom: kToolbarHeight - defaultAppBarHeight,
+                left: 10,
+                right: 10,
               ),
-            );
-          },
-        ),
-        background: background,
-      ),
+              centerTitle: true,
+              title: Builder(
+                builder: (context) {
+                  final FlexibleSpaceBarSettings? settings =
+                      context.dependOnInheritedWidgetOfExactType<
+                          FlexibleSpaceBarSettings>();
+                  return Opacity(
+                    opacity: settings?.isScrolledUnder == true ? 1 : 0,
+                    child: title ??
+                        DefaultTitleWidget(
+                          titleContent: titleText,
+                        ),
+                  );
+                },
+              ),
+              background: background,
+            )
+          : background,
     );
   }
 }
