@@ -40,7 +40,7 @@ mkdir $ipaDIR
 
 echo "\033[1;32m开始导出ipa...\033[0m\n\c"
 # 导出 ipa包
-xcodebuild -exportArchive -archivePath "$XC_FILE_PATH" -configuration "Adhoc" -exportPath "$ipaDIR" -exportOptionsPlist "$PROJECT_DIR/buildIpaTestExportOptions.plist"
+xcodebuild -exportArchive -archivePath "$XC_FILE_PATH" -configuration "Adhoc" -exportPath "$ipaDIR" -allowProvisioningUpdates -exportOptionsPlist "$PROJECT_DIR/buildIpaTestExportOptions.plist"
 
 cd $ipaDIR
 FILE_PATH="copyForUpload.ipa"
