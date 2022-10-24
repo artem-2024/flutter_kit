@@ -15,8 +15,11 @@ abstract class BassApp extends StatefulWidget {
       AppRouterInformationParser();
   late final PlatformRouteInformationProvider platformRouteInformationProvider =
       PlatformRouteInformationProvider(
-    initialRouteInformation: const RouteInformation(location: rootPath),
+    initialRouteInformation: RouteInformation(location: initialRoutePath),
   );
+
+  /// 可指定初始化显示的页面，默认[rootPath]
+  String get initialRoutePath => rootPath;
 
   BassApp({Key? key}) : super(key: key);
 }
