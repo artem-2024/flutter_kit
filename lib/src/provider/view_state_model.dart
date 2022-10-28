@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
+import '../../flutter_kit_core.dart';
 import '../utils/logger.dart';
 import 'view_state.dart';
 
@@ -74,6 +74,7 @@ class ViewStateModel with ChangeNotifier {
   }
 
   /// [e]分类Error和Exception两种
+  /// [e]分类Error和Exception两种
   void setError(e, s, {String? message}) {
     ViewStateErrorType errorType = ViewStateErrorType.defaultError;
     if (message != null && message != '') {
@@ -96,14 +97,20 @@ class ViewStateModel with ChangeNotifier {
         } else {
           // dio将原error重新套了一层
           e = e.error;
-          if (e is HttpException) {
+          if (e is LogicException) {
+            if(e.type == LogicExceptionType.tokenExpire){
+              s = null;
+              errorType = ViewStateErrorType.unauthorizedError;
+            }
+            message = e.toString();
+          } else if (e is HttpException) {
             s = null;
             message = e.message;
           } else if (e is SocketException) {
             errorType = ViewStateErrorType.networkTimeOutError;
             message = e.message;
           } else {
-            message = e.error;
+            message = '未知异常';
           }
         }
       }
