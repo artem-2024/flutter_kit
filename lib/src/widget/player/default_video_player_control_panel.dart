@@ -54,8 +54,10 @@ class DefaultVideoPlayerControlPanel extends StatefulWidget {
     this.bottomBarHeight,
     this.panelHitBehavior = PanelHitBehavior.full,
     this.divChildWidget,
+    this.showLeading = true,
   }) : super(key: key);
 
+  final bool showLeading;
   /// 标题
   final String? title;
 
@@ -453,10 +455,15 @@ class DefaultVideoPlayerControlPanelState
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         // 播放或暂停按钮
-        IconButton(
-          onPressed: widget.onPlayOrPause,
-          icon: Icon(widget.isPlaying ? Icons.pause : Icons.play_arrow,color: Colors.white,),
-        ),
+        widget.onPlayOrPause != null
+            ? IconButton(
+                onPressed: widget.onPlayOrPause,
+                icon: Icon(
+                  widget.isPlaying ? Icons.pause : Icons.play_arrow,
+                  color: Colors.white,
+                ),
+              )
+            : const SizedBox(),
         // DefaultIconButton(
         //   icon: widget.isPlaying
         //       ? 'assets/images/common/icon_video_pause_small.png'
@@ -546,17 +553,18 @@ class DefaultVideoPlayerControlPanelState
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          DefaultLeading(
-            iconColor: Colors.white,
-            onPopTap: () {
-              // 需要拦截时 直接在拦截里面处理退出逻辑
-              if (shouldPopScope) {
-                _closeSelf();
-              } else {
-                _closePageCallBack();
-              }
-            },
-          ),
+          if (widget.showLeading)
+            DefaultLeading(
+              iconColor: Colors.white,
+              onPopTap: () {
+                // 需要拦截时 直接在拦截里面处理退出逻辑
+                if (shouldPopScope) {
+                  _closeSelf();
+                } else {
+                  _closePageCallBack();
+                }
+              },
+            ),
           Text(
             widget.title ?? '',
             style: const TextStyle(color: Colors.white, fontSize: 16),
