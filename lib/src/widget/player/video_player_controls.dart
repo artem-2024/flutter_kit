@@ -14,8 +14,8 @@ import '../default_appbar.dart';
 import '../default_loading.dart';
 
 class VideoPlayerControls extends StatefulWidget {
-  const VideoPlayerControls({Key? key}) : super(key: key);
-
+  const VideoPlayerControls({Key? key,this.showVerticalLeading = true,}) : super(key: key);
+  final bool showVerticalLeading;
   @override
   State<StatefulWidget> createState() {
     return _VideoPlayerControlsState();
@@ -105,15 +105,18 @@ class _VideoPlayerControlsState extends State<VideoPlayerControls>
         Positioned(
           left: 0,
           top: 0,
-          child: DefaultLeading(
-            iconColor: Colors.white,
-            onPopTap: () {
-              // 处理不会自动旋转为竖屏
-              if (chewieController.isFullScreen) {
-                ScreenUtils.toPortraitUp();
-              }
-              Navigator.of(context).maybePop();
-            },
+          child: Visibility(
+            visible: ScreenUtils.isLandscape(context)||widget.showVerticalLeading,
+            child: DefaultLeading(
+              iconColor: Colors.white,
+              onPopTap: () {
+                // 处理不会自动旋转为竖屏
+                if (chewieController.isFullScreen) {
+                  ScreenUtils.toPortraitUp();
+                }
+                Navigator.of(context).maybePop();
+              },
+            ),
           ),
         ),
       ],

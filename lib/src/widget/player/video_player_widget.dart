@@ -10,8 +10,9 @@ import 'video_player_controls.dart';
 /// 播放器
 ///
 class VideoPlayerWidget extends StatefulWidget {
-  const VideoPlayerWidget({Key? key,required this.videoUrl}) : super(key: key);
+  const VideoPlayerWidget({Key? key,required this.videoUrl,this.showVerticalLeading = true,}) : super(key: key);
   final String videoUrl;
+  final bool showVerticalLeading;
   @override
   VideoPlayerWidgetState createState() => VideoPlayerWidgetState();
 }
@@ -28,12 +29,12 @@ class VideoPlayerWidgetState extends State<VideoPlayerWidget> {
     videoPlayerController = VideoPlayerController.network(widget.videoUrl);
     chewieController = ChewieController(
       showControlsOnInitialize: true,
-      placeholder: const Center(child: DefaultCircularProgressIndicator()),
+      placeholder: Container(color: Colors.black,child: const Center(child: DefaultCircularProgressIndicator())),
       looping: false,
       videoPlayerController: videoPlayerController!,
       showOptions: false,
       aspectRatio: 16/9,
-      customControls: const VideoPlayerControls(),
+      customControls: VideoPlayerControls(showVerticalLeading: widget.showVerticalLeading,),
       allowedScreenSleep: false
     );
     initializePlayerSource();
