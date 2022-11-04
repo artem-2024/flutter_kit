@@ -19,8 +19,12 @@ class DefaultAppBar extends AppBar {
     Widget? background,
     bool centerTitle = true,
     Color? backgroundColor,
+    double? titleSpacing,
+    double? leadingWidth,
   }) : super(
             key: key,
+            titleSpacing: titleSpacing,
+            leadingWidth: leadingWidth,
             centerTitle: centerTitle,
             toolbarHeight: defaultAppBarHeight,
             leading: leading ?? const DefaultLeading(),
