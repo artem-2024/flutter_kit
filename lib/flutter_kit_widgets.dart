@@ -71,3 +71,6 @@ export 'src/widget/transform_container.dart';
 
 export 'src/widget/dot_widget.dart';
 
+export 'src/widget/separator.dart';
+
+export 'src/widget/default_expansion_tile.dart';
