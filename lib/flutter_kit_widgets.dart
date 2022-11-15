@@ -32,6 +32,7 @@ export 'src/widget/default_appbar.dart';
 export 'src/widget/refresh/refresh_list.dart';
 export 'src/widget/refresh/need_evict_network_image_mixin.dart';
 export 'src/widget/refresh/refresh_list_indicator.dart';
+export 'src/widget/refresh/refresh_list_data_source.dart';
 
 export 'src/widget/default_scroll_to_bottom.dart';
 

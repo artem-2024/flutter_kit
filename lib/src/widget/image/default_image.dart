@@ -170,7 +170,7 @@ class DefaultAssetImage extends StatelessWidget {
       color: color,
       errorBuilder: (_, e, s) {
         LogUtils.instance.e('加载Asset图片失败', e, s);
-        return const Text('😢');
+        return const Text('未知图标');
       },
       gaplessPlayback: true,
     );
