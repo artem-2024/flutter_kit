@@ -24,7 +24,6 @@ class CheckUpUtils {
   /// 检查升级，判断是否需要升级 [isManualCall]是否手动调用（eg：设置页面主动点击检查更新就传true）
   static Future<void> checkUp({
     required BuildContext context,
-    ValueChanged<bool>? onShowLoading,
     bool showToastMsg = true,
     bool? isManualCall,
     bool? mustUpgrade,
