@@ -162,7 +162,7 @@ mixin UploadAppLogicMixin<T extends StatefulWidget> on State<T> {
           saveFilePath: apkSavePath,
           cancelToken: _cancelToken,
           onErr: (msg) {
-            ToastUtils.showText(msg);
+            ToastUtils.showText(msg?.toString());
           },
           deleteIfExists: downLoadApkSuccess != true,
           onProgress: _onDownloadApkProgress,
