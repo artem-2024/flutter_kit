@@ -20,6 +20,11 @@ class ScreenUtils {
   static void hideKeyboard() {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
   }
+  
+  /// 显示软键盘
+  static void showKeyboard() {
+    SystemChannels.textInput.invokeMethod('TextInput.show');
+  }
 
   /// 返回状态栏高度
   static double getTopBarHeight(BuildContext context) {
