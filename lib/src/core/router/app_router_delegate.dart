@@ -15,7 +15,7 @@ class AppRouterDelegate extends RouterDelegate<RouteSettings>
       _stackRouteKey.currentState?.context;
 
   /// 路由栈
-  final List<Page<dynamic>> _stack = [];
+  List<Page<dynamic>> _stack = [];
 
   /// 控件监听对应的路由跳转行为
   final RouteObserver<ModalRoute<void>> _routeObserver =
@@ -110,6 +110,7 @@ class AppRouterDelegate extends RouterDelegate<RouteSettings>
       );
       notifyListeners();
     }
+    debugPrint('AppRouterDelegate push result = $_stack');
     return SynchronousFuture<void>(null);
   }
 
@@ -126,6 +127,7 @@ class AppRouterDelegate extends RouterDelegate<RouteSettings>
       ]);
       notifyListeners();
     }
+    debugPrint('AppRouterDelegate replace result = $_stack');
     return SynchronousFuture<void>(null);
   }
 
@@ -135,6 +137,26 @@ class AppRouterDelegate extends RouterDelegate<RouteSettings>
       _stack.removeWhere(test);
       notifyListeners();
     }
+    debugPrint('AppRouterDelegate popWhere result = $_stack');
+    return SynchronousFuture<void>(null);
+  }
+  /// 关闭指定页面的上面所有页面
+  Future<void> popThisTop(String pageName) async {
+    if (_stack.isNotEmpty) {
+      int? index;
+      for(int i=0;i<_stack.length;i++){
+        final current = _stack[i];
+        if(current.name == pageName){
+          index = i;
+          break;
+        }
+      }
+      if(index!=null&&index>0){
+        _stack = _stack.sublist(index);
+      }
+      notifyListeners();
+    }
+    debugPrint('AppRouterDelegate popThisTop result = $_stack');
     return SynchronousFuture<void>(null);
   }
 
