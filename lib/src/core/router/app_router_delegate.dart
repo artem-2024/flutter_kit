@@ -66,6 +66,7 @@ class AppRouterDelegate extends RouterDelegate<RouteSettings>
 
   /// 最近一次点击返回键事件，用于安卓点击2次退出app
   DateTime? _lastPressTime;
+
   @override
   Future<bool> popRoute() {
     if (_stack.length <= 1 &&
@@ -140,19 +141,20 @@ class AppRouterDelegate extends RouterDelegate<RouteSettings>
     debugPrint('AppRouterDelegate popWhere result = $_stack');
     return SynchronousFuture<void>(null);
   }
+
   /// 关闭指定页面的上面所有页面
   Future<void> popThisTop(String pageName) async {
     if (_stack.isNotEmpty) {
       int? index;
-      for(int i=0;i<_stack.length;i++){
+      for (int i = 0; i < _stack.length; i++) {
         final current = _stack[i];
-        if(current.name == pageName){
+        if (current.name == pageName) {
           index = i;
           break;
         }
       }
-      if(index!=null&&index>0){
-        _stack = _stack.sublist(index);
+      if (index != null && index > 0) {
+        _stack = _stack.sublist(0, index + 1);
       }
       notifyListeners();
     }
@@ -195,5 +197,4 @@ class AppRouterDelegate extends RouterDelegate<RouteSettings>
   /// 只留其他首页，其他页面关闭
   Future<void> showRootPageOnly() =>
       popWhere((element) => element.name != rootPath);
-
 }
