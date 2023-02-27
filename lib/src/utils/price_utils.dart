@@ -50,6 +50,7 @@ class DefaultPriceWidget extends StatelessWidget {
     this.sellPriceTextColor =  const Color(0xffFF9900),
     this.textBaseline,
     this.crossAxisAlignment =  CrossAxisAlignment.end,
+    this.autoShowFree = true,
   }) : super(key: key);
   final String? sellPrice;
   final String? originalPrice;
@@ -61,11 +62,12 @@ class DefaultPriceWidget extends StatelessWidget {
   final Color sellPriceTextColor;
   final TextBaseline? textBaseline;
   final CrossAxisAlignment crossAxisAlignment;
+  final bool autoShowFree;
   @override
   Widget build(BuildContext context) {
     Widget child;
     final isFree = num.tryParse(sellPrice ?? '0') == 0;
-    if (isFree) {
+    if (isFree && autoShowFree) {
       child = Text(
         _defaultFreeStr,
         style: TextStyle(

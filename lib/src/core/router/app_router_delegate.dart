@@ -153,7 +153,7 @@ class AppRouterDelegate extends RouterDelegate<RouteSettings>
           break;
         }
       }
-      if (index != null && index > 0) {
+      if (index != null && index >= 0) {
         _stack = _stack.sublist(0, index + 1);
       }
       notifyListeners();

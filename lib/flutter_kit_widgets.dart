@@ -75,3 +75,5 @@ export 'src/widget/dot_widget.dart';
 export 'src/widget/separator.dart';
 
 export 'src/widget/default_expansion_tile.dart';
+
+export 'package:image_picker/image_picker.dart';
