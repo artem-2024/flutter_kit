@@ -22,11 +22,13 @@ class LogicException implements Exception {
   int? code;
   LogicExceptionType type;
   String? message;
+  bool?needShowErrMsg;
 
   LogicException(
       this.code, {
         this.message,
         this.type = LogicExceptionType.other,
+        this.needShowErrMsg,
       });
 
   @override
