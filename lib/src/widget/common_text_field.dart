@@ -28,6 +28,7 @@ class CommonTextField extends StatefulWidget {
     this.onSubmitted,
     this.horizontalPadding = 0,
     this.clearOnSubmitted = true,
+    this.enabled,
   }) : super(key: key);
   final TextEditingController? textEditingController;
   final FocusNode? focusNode;
@@ -77,6 +78,9 @@ class CommonTextField extends StatefulWidget {
 
   /// 内容水平间距
   final double horizontalPadding;
+
+  /// 是否可以编辑
+  final bool? enabled;
 
 
   @override
@@ -155,6 +159,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
               onChanged: (content) {
                 widget.onChanged?.call(content);
               },
+              enabled: widget.enabled,
               obscureText: widget.obscureText,
               maxLines: 1,
               maxLength: widget.maxLength,
