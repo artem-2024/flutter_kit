@@ -29,6 +29,7 @@ class CommonTextField extends StatefulWidget {
     this.horizontalPadding = 0,
     this.clearOnSubmitted = true,
     this.enabled,
+    this.scrollController,
   }) : super(key: key);
   final TextEditingController? textEditingController;
   final FocusNode? focusNode;
@@ -81,6 +82,9 @@ class CommonTextField extends StatefulWidget {
 
   /// 是否可以编辑
   final bool? enabled;
+
+  /// 编辑框滚动控制器
+  final ScrollController? scrollController;
 
 
   @override
@@ -159,6 +163,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
               onChanged: (content) {
                 widget.onChanged?.call(content);
               },
+              scrollController: widget.scrollController,
               enabled: widget.enabled,
               obscureText: widget.obscureText,
               maxLines: 1,

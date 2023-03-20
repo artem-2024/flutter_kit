@@ -183,12 +183,12 @@ class RefreshListState<T> extends State<RefreshList<T>> {
   }
 
   ///公开方法：主动刷新，参数为是否显示指示器
-  void refresh(
+  Future refresh(
       {bool showIndicator = false, bool clearBeforeRequest = true}) async {
     if (showIndicator == true) {
-      _refreshKey?.currentState?.show();
+      return _refreshKey?.currentState?.show();
     } else {
-      _refreshListDataSource.refresh(clearBeforeRequest);
+      return _refreshListDataSource.refresh(clearBeforeRequest);
     }
   }
 
