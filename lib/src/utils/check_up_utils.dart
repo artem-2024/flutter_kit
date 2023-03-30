@@ -11,7 +11,7 @@ import '../../flutter_kit.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 
-/// 为true时表示不再主动提示更新
+/// 为true时表示不再主动提示更新  通常是['$_noTipAgainKey$releaseCode']作为key
 const _noTipAgainKey = 'checkUp_noTipAgainKey';
 
 /// 为true时表示apk下载成功且完整，
@@ -32,9 +32,9 @@ class CheckUpUtils {
     required Dio dio,
     String? releaseDesc,
   }) async {
-    // 不是手动调用 且 不是强制更新 就判断用户是否选择了不再提示更新
+    // 不是手动调用 且 不是强制更新 就判断用户是否选择了这个版本不再提示更新
     if (isManualCall != true && mustUpgrade != true) {
-      final isNoTipAgain = await StorageUtils.getBool(_noTipAgainKey);
+      final isNoTipAgain = await StorageUtils.getBool('$_noTipAgainKey$releaseCode');
       if (isNoTipAgain == true) {
         LogUtils.instance.i('CheckUpUtils : 用户选择了不再提示更新，退出弹窗提示');
         return;
@@ -256,7 +256,7 @@ class _DefaultUpgradeUIState extends State<_DefaultUpgradeUI>
           if (!mustUpgrade && widget.isManualCall != true)
             TextButton(
               onPressed: () {
-                StorageUtils.setBool(_noTipAgainKey, true);
+                StorageUtils.setBool('$_noTipAgainKey$releaseCode', true);
                 _closeSelf();
               },
               child: const Text('不再提示'),
