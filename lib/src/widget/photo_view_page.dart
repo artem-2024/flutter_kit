@@ -16,6 +16,8 @@ class PhotoViewPage extends StatefulWidget {
     required List<String> urlList,
     int initialIndex = 0,
   }) {
+    // 处理如果页面有输入框，且由于输入框仍然有焦点，关掉对话框，否则软键盘又会自动弹起的问题
+    FocusManager.instance.primaryFocus?.unfocus();
     showDialog(
       context: context,
       barrierDismissible: true,
