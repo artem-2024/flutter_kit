@@ -478,7 +478,8 @@ class DefaultVideoPlayerControlPanelState
 
         // 切换播放倍数
         Offstage(
-          offstage: widget.isLive == true || _isFullStatus == false,
+          // offstage: widget.isLive == true || _isFullStatus == false,
+          offstage: widget.isLive == true,
           child: IconButton(
             padding: const EdgeInsets.all(0),
             onPressed: () => _showRatesOverlay.value = true,
