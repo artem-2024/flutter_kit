@@ -51,7 +51,7 @@ class ComponentEmptyContainer extends StatelessWidget {
                   child: Text(
                     btnText,
                     style:
-                        TextStyle(fontSize: 12, color: getColorTheme(context)),
+                        TextStyle(fontSize: 12, color: getColorTheme(context),decoration: TextDecoration.underline,),
                   ),
                 ),
               ],

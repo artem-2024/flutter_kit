@@ -23,6 +23,7 @@ class FlutterKitConfig {
     this.getPageChild,
     this.exitByDoubleTapBackOnAndroid = true,
     this.iOSAppId,
+    this.networkErrChild,
   });
 
   final GetPageChild? getPageChild;
@@ -31,6 +32,9 @@ class FlutterKitConfig {
 
   /// 在Android平台是否通过按两次返回键退出程序， default = true
   final bool exitByDoubleTapBackOnAndroid;
+
+  /// 无网络child
+  final Widget? networkErrChild;
 
 }
 

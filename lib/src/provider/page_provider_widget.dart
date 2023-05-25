@@ -131,19 +131,26 @@ class _PageProviderWidgetState<A extends ViewStateModel>
 
           if (error?.isNetworkTimeOut == true) {
             errorWidget = widget.networkErrChild ??
+                FlutterKit.flutterKitConfig.networkErrChild ??
                 ErrorDataContainer(
                   showHeader: widget.showHeader,
                   title: '未能连接到互联网，检查是否没有打开网络或者禁止本应用联网',
-                  onRefresh: () => widget.onModelReady?.call(_viewModel),
+                  // onRefresh: () => widget.onModelReady?.call(_viewModel),
                 );
           } else {
             errorWidget = widget.errChild ??
                 ErrorDataContainer(
                   showHeader: widget.showHeader,
                   title: error?.errorMessage,
-                  onRefresh: () => widget.onModelReady?.call(_viewModel),
+                  // onRefresh: () => widget.onModelReady?.call(_viewModel),
                 );
           }
+          // 加点击事件
+          errorWidget = GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: GestureUtils.throttle(() => widget.onModelReady?.call(_viewModel)),
+            child: errorWidget,
+          );
 
           if (widget.isSliver) {
             errorWidget = setSliverContainer(errorWidget);
