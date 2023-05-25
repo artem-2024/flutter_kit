@@ -129,7 +129,7 @@ class _PageProviderWidgetState<A extends ViewStateModel>
           // 登录过期异常返回未授权的widget
           var error = _viewModel.viewStateError;
 
-          if (error?.isNetworkTimeOut == true) {
+          if (error?.isNetworkTimeOut == true && widget.errChild == null) {
             errorWidget = widget.networkErrChild ??
                 FlutterKit.flutterKitConfig.networkErrChild ??
                 ErrorDataContainer(

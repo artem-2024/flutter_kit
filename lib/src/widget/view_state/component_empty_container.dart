@@ -9,7 +9,7 @@ class ComponentEmptyContainer extends StatelessWidget {
     this.onTap,
     this.title = '暂无数据',
     this.btnText = '刷新一下',
-    this.showBtn = false,
+    this.showBtn = true,
   }) : super(key: key);
   final VoidCallback? onTap;
   final String title;
