@@ -23,6 +23,7 @@ class PageProviderWidget<A extends ViewStateModel> extends StatefulWidget {
   final Widget? emptyChild;
   final Widget? busyChild;
   final Widget? errChild;
+  final Widget? networkErrChild;
 
   ///model绑定成功回调，通常用来请求数据
   final void Function(A viewModel)? onModelReady;
@@ -44,6 +45,7 @@ class PageProviderWidget<A extends ViewStateModel> extends StatefulWidget {
     this.emptyChild,
     this.busyChild,
     this.errChild,
+    this.networkErrChild,
     this.onModelReady,
     this.autoDispose = true,
     this.showHeader = false,
@@ -126,12 +128,22 @@ class _PageProviderWidgetState<A extends ViewStateModel>
           Widget errorWidget;
           // 登录过期异常返回未授权的widget
           var error = _viewModel.viewStateError;
-          errorWidget = widget.errChild ??
-              ErrorDataContainer(
-                showHeader: widget.showHeader,
-                title: error?.errorMessage,
-                onRefresh: () => widget.onModelReady?.call(_viewModel),
-              );
+
+          if (error?.isNetworkTimeOut == true) {
+            errorWidget = widget.networkErrChild ??
+                ErrorDataContainer(
+                  showHeader: widget.showHeader,
+                  title: '未能连接到互联网，检查是否没有打开网络或者禁止本应用联网',
+                  onRefresh: () => widget.onModelReady?.call(_viewModel),
+                );
+          } else {
+            errorWidget = widget.errChild ??
+                ErrorDataContainer(
+                  showHeader: widget.showHeader,
+                  title: error?.errorMessage,
+                  onRefresh: () => widget.onModelReady?.call(_viewModel),
+                );
+          }
 
           if (widget.isSliver) {
             errorWidget = setSliverContainer(errorWidget);
