@@ -21,23 +21,25 @@ class DefaultAppBar extends AppBar {
     Color? backgroundColor,
     double? titleSpacing,
     double? leadingWidth,
+    PreferredSizeWidget? bottom,
   }) : super(
-            key: key,
-            titleSpacing: titleSpacing,
-            leadingWidth: leadingWidth,
-            centerTitle: centerTitle,
-            toolbarHeight: defaultAppBarHeight,
-            leading: leading ?? const DefaultLeading(),
-            title: title ??
-                DefaultTitleWidget(
-                  titleContent: titleText,
-                ),
-            actions: actions,
-            elevation: elevation,
-            shadowColor: const Color(0xffF4F5F7),
-            systemOverlayStyle: systemOverlayStyle,
-            flexibleSpace: background,
-            backgroundColor: backgroundColor);
+    key: key,
+    titleSpacing: titleSpacing,
+    leadingWidth: leadingWidth,
+    centerTitle: centerTitle,
+    toolbarHeight: defaultAppBarHeight,
+    leading: leading ?? const DefaultLeading(),
+    title: title ??
+        DefaultTitleWidget(
+          titleContent: titleText,
+        ),
+    actions: actions,
+    elevation: elevation,
+    shadowColor: const Color(0xffF4F5F7),
+    systemOverlayStyle: systemOverlayStyle,
+    flexibleSpace: background,
+    backgroundColor: backgroundColor,
+    bottom: bottom,);
 }
 
 ///
