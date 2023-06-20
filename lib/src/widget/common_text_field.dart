@@ -24,12 +24,15 @@ class CommonTextField extends StatefulWidget {
     this.otherLeft,
     this.autofocus = false,
     this.decoration,
-    this.fontSize = 14,
     this.onSubmitted,
     this.horizontalPadding = 0,
     this.clearOnSubmitted = true,
     this.enabled,
     this.scrollController,
+    this.style= const TextStyle(fontSize: 14,letterSpacing: 1.2),
+    this.hintStyle,
+    this.textAlign = TextAlign.start,
+    this.onEditingComplete,
   }) : super(key: key);
   final TextEditingController? textEditingController;
   final FocusNode? focusNode;
@@ -68,8 +71,6 @@ class CommonTextField extends StatefulWidget {
   /// 样式
   final Decoration? decoration;
 
-  /// 文字大小
-  final double fontSize;
 
   /// 提交动作
   final ValueChanged<String>? onSubmitted;
@@ -86,6 +87,10 @@ class CommonTextField extends StatefulWidget {
   /// 编辑框滚动控制器
   final ScrollController? scrollController;
 
+  final TextStyle? hintStyle;
+  final TextStyle? style;
+  final TextAlign textAlign;
+  final VoidCallback? onEditingComplete;
 
   @override
   State createState() => _CommonTextFieldState();
@@ -149,11 +154,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
           Expanded(
             child: TextField(
               autofocus: widget.autofocus,
-              style: TextStyle(
-                fontSize: widget.fontSize,
-                // color: widget.style.textColor,
-                letterSpacing: 1.2,
-              ),
+              style: widget.style,
               inputFormatters: widget.inputFormatters,
               focusNode: _focusNode,
               // textAlignVertical: TextAlignVertical.center,
@@ -163,6 +164,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
               onChanged: (content) {
                 widget.onChanged?.call(content);
               },
+              textAlign: widget.textAlign,
               scrollController: widget.scrollController,
               enabled: widget.enabled,
               obscureText: widget.obscureText,
@@ -173,10 +175,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
                 border: const OutlineInputBorder(borderSide: BorderSide.none),
                 contentPadding: EdgeInsets.symmetric(horizontal: widget.horizontalPadding),
                 hintText: widget.hintText,
-                // hintStyle: TextStyle(
-                //   fontSize: widget.fontSize,
-                //   // color: widget.style.hintTextColor,
-                // ),
+                hintStyle: widget.hintStyle,
                 counter: null,
                 counterText: '',
                 hintMaxLines: 1,
@@ -189,6 +188,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
                 }
                 widget.onSubmitted!.call(text);
               },
+              onEditingComplete: widget.onEditingComplete,
             ),
           ),
           ValueListenableBuilder<bool>(
