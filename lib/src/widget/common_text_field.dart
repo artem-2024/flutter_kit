@@ -33,6 +33,7 @@ class CommonTextField extends StatefulWidget {
     this.hintStyle,
     this.textAlign = TextAlign.start,
     this.onEditingComplete,
+    this.text,
   }) : super(key: key);
   final TextEditingController? textEditingController;
   final FocusNode? focusNode;
@@ -91,6 +92,7 @@ class CommonTextField extends StatefulWidget {
   final TextStyle? style;
   final TextAlign textAlign;
   final VoidCallback? onEditingComplete;
+  final String? text;
 
   @override
   State createState() => _CommonTextFieldState();
@@ -107,7 +109,7 @@ class _CommonTextFieldState extends State<CommonTextField> {
     super.initState();
     _focusNode = widget.focusNode ?? FocusNode();
     _textEditingController =
-        widget.textEditingController ?? TextEditingController();
+        widget.textEditingController ?? TextEditingController(text: widget.text);
     _focusNode.addListener(_focusNodeListener);
   }
 
