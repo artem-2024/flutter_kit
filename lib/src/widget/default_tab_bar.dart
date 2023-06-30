@@ -40,7 +40,7 @@ class DefaultTabBar extends extend.TabBar {
           unselectedLabelStyle: unselectedLabelStyle,
           indicator: showIndicator
               ? DefaultTabDecoration(indicatorPainter: indicatorPainter)
-              : null,
+              : BoxDecoration(),
           indicatorColor: showIndicator ? null : Colors.transparent,
           onTap: onTap,
         );
