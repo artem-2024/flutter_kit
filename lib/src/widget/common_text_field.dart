@@ -242,6 +242,9 @@ class CommonPwdTextField extends StatefulWidget {
     this.autofocus = false,
     this.horizontalPadding = 0,
     this.decoration,
+    this.hintStyle,
+    this.style,
+    this.textAlign = TextAlign.start,
   }) : super(key: key);
 
   /// 外边距
@@ -264,6 +267,10 @@ class CommonPwdTextField extends StatefulWidget {
   /// 样式
   final Decoration? decoration;
 
+  final TextStyle? hintStyle;
+  final TextStyle? style;
+  final TextAlign textAlign;
+
   @override
   State createState() => _CommonPwdTextFieldState();
 }
@@ -284,9 +291,9 @@ class _CommonPwdTextFieldState extends State<CommonPwdTextField> {
       valueListenable: _showPwd,
       builder: (_, isShowPwd, __) {
         return CommonTextField(
-          inputFormatters: [
-            FilteringTextInputFormatter.allow(RegExp(r'[a-z0-9A-Z]'))
-          ],
+          // inputFormatters: [
+          //   FilteringTextInputFormatter.allow(RegExp(r'[a-z0-9A-Z]'))
+          // ],
           keyboardType: TextInputType.visiblePassword,
           horizontalPadding: widget.horizontalPadding,
           autofocus: widget.autofocus,
@@ -308,6 +315,9 @@ class _CommonPwdTextFieldState extends State<CommonPwdTextField> {
           ),
           onChanged: widget.onChanged,
           decoration: widget.decoration,
+          style: widget.style,
+          hintStyle: widget.hintStyle,
+          textAlign: widget.textAlign,
         );
       },
     );
