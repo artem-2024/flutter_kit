@@ -305,7 +305,7 @@ class _CommonPwdTextFieldState extends State<CommonPwdTextField> {
           textInputAction: widget.textInputAction,
           hintText: widget.hintText,
           showCleanSuffix: false,
-          maxLength: 12,
+          maxLength: 32,
           otherSuffix: IconButton(
             iconSize: 18,
             onPressed: () {
