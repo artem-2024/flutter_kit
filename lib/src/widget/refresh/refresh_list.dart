@@ -43,6 +43,7 @@ class RefreshList<T> extends StatefulWidget {
     this.itemExtent,
     this.gridDelegate,
     this.padding = const EdgeInsets.all(0),
+    this.shrinkWrap = false,
   }) : super(key: key);
 
   ///滚动物理效果，默认Always
@@ -107,6 +108,8 @@ class RefreshList<T> extends StatefulWidget {
 
   /// The amount of space by which to inset the children.
   final EdgeInsetsGeometry padding;
+
+  final bool shrinkWrap;
 }
 
 class RefreshListState<T> extends State<RefreshList<T>> {
@@ -221,7 +224,7 @@ class RefreshListState<T> extends State<RefreshList<T>> {
         padding: widget.padding,
         physics: widget.physics ?? _defaultPhysics,
         controller: _scrollController,
-        shrinkWrap: true,
+        shrinkWrap: widget.shrinkWrap,
         showGlowTrailing: false,
         showGlowLeading: false,
         indicatorBuilder: _refreshListViewState.build,
