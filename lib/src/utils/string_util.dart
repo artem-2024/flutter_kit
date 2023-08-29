@@ -47,4 +47,22 @@ class StringUtil {
     });
     return text;
   }
+
+  /// 对bytes进行转换
+  static String? formatBytes(int? bytes,
+      {String bStr = 'B', String kStr = 'K', String mStr = 'M', String gStr = 'G', int toStringAsFixed = 1,}) {
+    if (bytes == null) return null;
+    if (bytes < 1024) {
+      return '$bytes$bStr';
+    } else if (bytes < 1024 * 1024) {
+      double kb = bytes / 1024;
+      return '${kb.toStringAsFixed(toStringAsFixed)}$kStr';
+    } else if (bytes < 1024 * 1024 * 1024) {
+      double mb = bytes / (1024 * 1024);
+      return '${mb.toStringAsFixed(toStringAsFixed)}$mStr';
+    } else {
+      double gb = bytes / (1024 * 1024 * 1024);
+      return '${gb.toStringAsFixed(toStringAsFixed)}$gStr';
+    }
+  }
 }
