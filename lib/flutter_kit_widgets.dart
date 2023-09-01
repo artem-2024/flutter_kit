@@ -23,6 +23,7 @@ export 'src/widget/image/frame_animation_image.dart';
 export 'src/widget/player/defalut_panel_progress_bar.dart';
 export 'src/widget/player/video_player_widget.dart';
 export 'src/widget/player/default_video_player_control_panel.dart';
+export 'package:video_player/video_player.dart';
 
 
 /// appBar
