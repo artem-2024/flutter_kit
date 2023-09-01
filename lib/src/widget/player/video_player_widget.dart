@@ -10,9 +10,10 @@ import 'video_player_controls.dart';
 /// 播放器
 ///
 class VideoPlayerWidget extends StatefulWidget {
-  const VideoPlayerWidget({Key? key,required this.videoUrl,this.showVerticalLeading = true,}) : super(key: key);
+  const VideoPlayerWidget({Key? key,required this.videoUrl,this.showVerticalLeading = true,this.valueChanged,}) : super(key: key);
   final String videoUrl;
   final bool showVerticalLeading;
+  final ValueChanged<VideoPlayerValue>? valueChanged;
   @override
   VideoPlayerWidgetState createState() => VideoPlayerWidgetState();
 }
@@ -27,6 +28,7 @@ class VideoPlayerWidgetState extends State<VideoPlayerWidget> {
     super.initState();
     Wakelock.enable();
     videoPlayerController = VideoPlayerController.network(widget.videoUrl);
+    videoPlayerController?.addListener(listener);
     chewieController = ChewieController(
       showControlsOnInitialize: true,
       placeholder: Container(color: Colors.black,child: const Center(child: DefaultCircularProgressIndicator())),
@@ -35,16 +37,25 @@ class VideoPlayerWidgetState extends State<VideoPlayerWidget> {
       showOptions: false,
       aspectRatio: 16/9,
       customControls: VideoPlayerControls(showVerticalLeading: widget.showVerticalLeading,),
-      allowedScreenSleep: false
+      allowedScreenSleep: false,
     );
     initializePlayerSource();
   }
   @override
   void dispose() {
     Wakelock.disable();
+    videoPlayerController?.removeListener(listener);
     videoPlayerController?.dispose();
     chewieController?.dispose();
     super.dispose();
+  }
+
+  void listener() {
+    if (!mounted) return;
+    final value = videoPlayerController?.value;
+    if (value != null) {
+      widget.valueChanged?.call(value);
+    }
   }
 
   void initializePlayerSource()async{
