@@ -62,7 +62,7 @@ const double defaultAppBarElevation = 0.5;
 // const Color defaultAppBarShadowColor = ColorHelper.colorLine;
 
 /// 默认的错误提示
-const String errorMessage = '哎呀，网络开小差了';
+const String errorMessage = '操作异常';
 
 /// 空数据提示
 const String emptyDataMessage = '暂无相关数据';
