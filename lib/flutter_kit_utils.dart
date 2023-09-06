@@ -24,3 +24,6 @@ export 'src/utils/check_up_utils.dart';
 
 export 'src/utils/image_utils.dart';
 
+
+export 'package:path_provider/path_provider.dart';
+
