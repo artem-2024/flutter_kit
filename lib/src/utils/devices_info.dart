@@ -26,6 +26,9 @@ class DevicesInfoUtils {
   Future<Map?> get deviceAllInfo async {
     return (await DeviceInfoPlugin().deviceInfo).toMap();
   }
+  Future<AndroidDeviceInfo?> get deviceAndroidInfo async {
+    return await DeviceInfoPlugin().androidInfo;
+  }
 
   /// 获取系统版本名称，暂只支持android iOS
   Future<String?> get getSystemVersionStr async {
