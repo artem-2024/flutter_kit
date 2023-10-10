@@ -214,6 +214,15 @@ class RefreshListState<T> extends State<RefreshList<T>> {
   List<T> getListData() {
     return _refreshListDataSource;
   }
+  /// 赋值新数据
+  void setNewData(List<T> data,{bool checkEmpty = true}) {
+    _refreshListDataSource.clear();
+    _refreshListDataSource.addAll(data);
+    if (checkEmpty && _refreshListDataSource.isEmpty) {
+      _refreshListDataSource.indicatorStatus = IndicatorStatus.empty;
+    }
+    _refreshListDataSource.setState();
+  }
 
   ScrollPhysics get _defaultPhysics => const AlwaysScrollableScrollPhysics();
 
