@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_kit/flutter_kit_utils.dart';
+import 'package:flutter_kit/flutter_kit_widgets.dart';
 import 'package:flutter_kit/src/utils/app_store_util.dart';
 
 import '../../flutter_kit.dart';
@@ -162,7 +163,16 @@ mixin UploadAppLogicMixin<T extends StatefulWidget> on State<T> {
           saveFilePath: apkSavePath,
           cancelToken: _cancelToken,
           onErr: (msg) {
-            ToastUtils.showText(msg?.toString());
+            if (releaseUrl?.isNotEmpty == true) {
+              showDefaultTipsDialog(context,
+                  contentText: '${msg?.toString()}\n是否使用其它应用下载？',
+                  confirm: () {
+                launchUrl(Uri.parse(releaseUrl!),
+                    mode: LaunchMode.externalApplication);
+              });
+            } else {
+              ToastUtils.showText(msg?.toString());
+            }
           },
           deleteIfExists: downLoadApkSuccess != true,
           onProgress: _onDownloadApkProgress,
