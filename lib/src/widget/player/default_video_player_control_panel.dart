@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:screen_brightness/screen_brightness.dart';
 import 'package:volume_controller/volume_controller.dart';
 import 'package:wakelock/wakelock.dart';
@@ -620,9 +621,11 @@ class DefaultVideoPlayerControlPanelState
     if (_isFullStatus == true || isReset == true) {
       await ScreenUtils.toPortraitUp();
       _isFullStatus = false;
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,overlays:SystemUiOverlay.values);
     } else {
       await ScreenUtils.toLandscape();
       _isFullStatus = true;
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     }
   }
 
