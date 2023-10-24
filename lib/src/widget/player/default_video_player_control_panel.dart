@@ -56,6 +56,7 @@ class DefaultVideoPlayerControlPanel extends StatefulWidget {
     this.panelHitBehavior = PanelHitBehavior.full,
     this.divChildWidget,
     this.showLeading = true,
+    this.onLongPressCallback,
   }) : super(key: key);
 
   final bool showLeading;
@@ -100,6 +101,9 @@ class DefaultVideoPlayerControlPanel extends StatefulWidget {
 
   /// 选中某个倍数 （回传下标）
   final ValueChanged<int>? onChooseRate;
+
+  /// 长按回调 回传是否长按中状态
+  final ValueChanged<bool>? onLongPressCallback;
 
   /// 是否加载中
   final bool isBuffering;
@@ -232,6 +236,28 @@ class DefaultVideoPlayerControlPanelState
         onDoubleTap: () {
           widget.onPlayOrPause?.call();
         },
+        // onLongPressDown: (data){
+        //   print('longPressState-- onLongPressDown');
+        // },
+        // onLongPressCancel: (){
+        //   print('longPressState-- onLongPressCancel');
+        // },
+        // onLongPressStart: (_){
+        //   print('longPressState-- onLongPressStart');
+        // },
+        onLongPress: widget.isLive==true?null:(){
+          // print('longPressState-- onLongPress');
+          widget.onLongPressCallback?.call(true);
+        },
+        // onLongPressEnd: (data){
+        //   print('longPressState-- onLongPressEnd');
+        // },
+        onLongPressUp: widget.isLive==true?null:(){
+          // print('longPressState-- onLongPressUp');
+          widget.onLongPressCallback?.call(false);
+        },
+
+
         child: body,
       );
     } else if (widget.panelHitBehavior == PanelHitBehavior.fullVertical) {
