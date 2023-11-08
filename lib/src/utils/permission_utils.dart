@@ -92,6 +92,7 @@ class PermissionUtils {
   Future<PermissionStatus?> requestOne(
       Permission permission, BuildContext context) async {
     final PermissionStatus permissionStatus = await permission.status;
+    debugPrint('permission_utils call requestOne permission=$permission permissionStatus=$permissionStatus');
     /*
     允许：granted
     ios严格模式，可能是家长控制：isRestricted
@@ -112,6 +113,7 @@ class PermissionUtils {
       // 去申请权限
       if (result == true) {
         final PermissionStatus requestStatus = await permission.request();
+        debugPrint('permission_utils call requestOne permission=$permission result = requestStatus=$requestStatus');
         return requestStatus;
       }
       // 取消申请权限
