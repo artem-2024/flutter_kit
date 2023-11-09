@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:extended_image/extended_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'logger.dart';
 import 'permission_utils.dart';
 import 'package:path_provider/path_provider.dart';
@@ -49,6 +51,9 @@ class FileUtils {
       bool isGrand = await checkStoragePermission(context);
       if (isGrand != true) {
         onErr?.call(Exception('未授予下载的相关权限，请重试'));
+        if (defaultTargetPlatform == TargetPlatform.android) {
+          openAppSettings();
+        }
         return null;
       }
 
@@ -164,10 +169,26 @@ class FileUtils {
 
   /// 检查读写权限
   Future<bool> checkStoragePermission(BuildContext context) async {
-    final result = await PermissionUtils.instance.requestOne(
-      Permission.storage,
+    List<Permission> permissions = [Permission.storage];
+
+    if(defaultTargetPlatform == TargetPlatform.android){
+      permissions =  [Permission.storage,
+        Permission.manageExternalStorage];
+    }
+
+    final permissionResult = await PermissionUtils.instance.request(
       context,
+      permissions,
     );
-    return PermissionUtils.checkStatusCanWork(result);
+    bool hasPermission = true;
+    if (permissionResult != null) {
+      permissionResult.forEach((key, value) {
+        if (!PermissionUtils.checkStatusCanWork(value)) {
+          hasPermission=false;
+        }
+      });
+    }
+
+    return hasPermission;
   }
 }
