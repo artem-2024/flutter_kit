@@ -74,7 +74,7 @@ class PermissionUtils {
   /// 统一集合request
   Future<Map<Permission, PermissionStatus?>?> request(
       BuildContext context, List<Permission> permissionList,
-      {bool noTipWhenRequestPhone = false}) async {
+      {bool noTipDialog = false}) async {
     if (permissionList.isEmpty) return null;
 
     final Map<Permission, PermissionStatus?> permissionResult = {};
@@ -83,7 +83,7 @@ class PermissionUtils {
       permissionList,
       (e) async {
         permissionResult[e] = await requestOne(e, context,
-            noTipWhenRequestPhone: noTipWhenRequestPhone);
+            noTipDialog: noTipDialog);
       },
     );
 
@@ -93,7 +93,7 @@ class PermissionUtils {
   /// 请求单个权限
   Future<PermissionStatus?> requestOne(
       Permission permission, BuildContext context,
-      {bool noTipWhenRequestPhone = false}) async {
+      {bool noTipDialog = false}) async {
     final PermissionStatus permissionStatus = await permission.status;
     debugPrint(
         'permission_utils call requestOne permission=$permission permissionStatus=$permissionStatus');
@@ -111,13 +111,8 @@ class PermissionUtils {
     else {
       bool? result = true;
       // android弹窗权限友好提示
-      if (Platform.isAndroid) {
-        if (noTipWhenRequestPhone == true &&
-            permission.value == Permission.phone.value) {
-          // 设置了请求phone权限不弹窗
-        } else {
-          result = await _showPermissionDialog(context, permission);
-        }
+      if (Platform.isAndroid && noTipDialog == false) {
+        result = await _showPermissionDialog(context, permission);
       }
       // 去申请权限
       if (result == true) {
