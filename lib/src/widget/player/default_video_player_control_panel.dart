@@ -60,6 +60,7 @@ class DefaultVideoPlayerControlPanel extends StatefulWidget {
   }) : super(key: key);
 
   final bool showLeading;
+
   /// 标题
   final String? title;
 
@@ -204,10 +205,10 @@ class DefaultVideoPlayerControlPanelState
         // 加载中
         widget.isBuffering
             ? const SizedBox(
-                width: 34,
-                height: 34,
-                child: DefaultCircularProgressIndicator(),
-              )
+          width: 34,
+          height: 34,
+          child: DefaultCircularProgressIndicator(),
+        )
             : const SizedBox(),
         // 菜单区
         // 播放倍数选择
@@ -245,14 +246,14 @@ class DefaultVideoPlayerControlPanelState
         // onLongPressStart: (_){
         //   print('longPressState-- onLongPressStart');
         // },
-        onLongPress: widget.isLive==true?null:(){
+        onLongPress: widget.isLive == true ? null : () {
           // print('longPressState-- onLongPress');
           widget.onLongPressCallback?.call(true);
         },
         // onLongPressEnd: (data){
         //   print('longPressState-- onLongPressEnd');
         // },
-        onLongPressUp: widget.isLive==true?null:(){
+        onLongPressUp: widget.isLive == true ? null : () {
           // print('longPressState-- onLongPressUp');
           widget.onLongPressCallback?.call(false);
         },
@@ -344,7 +345,7 @@ class DefaultVideoPlayerControlPanelState
   /// 判断是否拦截页面关闭（eg：直播时或其他平台需处理关闭页面时拦截）
   bool get shouldPopScope =>
       //widget.showToggleOrientationBtn &&
-      (widget.isLive == true || defaultTargetPlatform != TargetPlatform.iOS);
+  (widget.isLive == true || defaultTargetPlatform != TargetPlatform.iOS);
 
   /// 清晰度选择器
   Widget get _buildDefinitionsOverlay {
@@ -408,7 +409,7 @@ class DefaultVideoPlayerControlPanelState
         runSpacing: 16,
         children: List.generate(
           titleList?.length ?? 0,
-          (index) {
+              (index) {
             final currentTitle = titleList![index] ?? '';
             final isSelect = currentTitle == selectTitle;
             return GestureDetector(
@@ -416,12 +417,12 @@ class DefaultVideoPlayerControlPanelState
               onTap: () => onSelect?.call(index),
               child: Container(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 decoration: isSelect
                     ? BoxDecoration(
-                        color: Colors.white38,
-                        borderRadius: BorderRadius.circular(22),
-                      )
+                  color: Colors.white38,
+                  borderRadius: BorderRadius.circular(22),
+                )
                     : null,
                 child: Text(
                   currentTitle,
@@ -443,21 +444,21 @@ class DefaultVideoPlayerControlPanelState
   Widget _buildOverlay(bool isShow, Widget? child, VoidCallback? onTap) {
     return isShow == true
         ? Positioned.fill(
-            child: GestureDetector(
-              behavior: HitTestBehavior.translucent,
-              onTap: () => onTap?.call(),
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.5),
-                ),
-                child: child != null
-                    ? Center(
-                        child: child,
-                      )
-                    : const SizedBox.shrink(),
-              ),
-            ),
+      child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () => onTap?.call(),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.5),
+          ),
+          child: child != null
+              ? Center(
+            child: child,
           )
+              : const SizedBox.shrink(),
+        ),
+      ),
+    )
         : const SizedBox();
   }
 
@@ -484,12 +485,12 @@ class DefaultVideoPlayerControlPanelState
         // 播放或暂停按钮
         widget.onPlayOrPause != null
             ? IconButton(
-                onPressed: widget.onPlayOrPause,
-                icon: Icon(
-                  widget.isPlaying ? Icons.pause : Icons.play_arrow,
-                  color: Colors.white,
-                ),
-              )
+          onPressed: widget.onPlayOrPause,
+          icon: Icon(
+            widget.isPlaying ? Icons.pause : Icons.play_arrow,
+            color: Colors.white,
+          ),
+        )
             : const SizedBox(),
         // DefaultIconButton(
         //   icon: widget.isPlaying
@@ -520,7 +521,7 @@ class DefaultVideoPlayerControlPanelState
         // 切换清晰度
         Offstage(
           offstage:
-              widget.definition?.isNotEmpty != true || _isFullStatus == false,
+          widget.definition?.isNotEmpty != true || _isFullStatus == false,
           child: IconButton(
             padding: const EdgeInsets.all(0),
             onPressed: () => _showDefinitionsOverlay.value = true,
@@ -536,15 +537,17 @@ class DefaultVideoPlayerControlPanelState
         if (widget.showToggleOrientationBtn)
           IconButton(
             onPressed: _toggleOrientation,
-            icon: Icon(_isFullStatus == true? Icons.fullscreen_exit : Icons.fullscreen,color: Colors.white,),
+            icon: Icon(
+              _isFullStatus == true ? Icons.fullscreen_exit : Icons.fullscreen,
+              color: Colors.white,),
           ),
-          // DefaultIconButton(
-          //   icon: _isFullStatus == true
-          //       ? 'assets/images/common/icon_video_16_9.png'
-          //       : 'assets/images/common/icon_video_full.png',
-          //   onPressed: _toggleOrientation,
-          //   size: 40,
-          // ),
+        // DefaultIconButton(
+        //   icon: _isFullStatus == true
+        //       ? 'assets/images/common/icon_video_16_9.png'
+        //       : 'assets/images/common/icon_video_full.png',
+        //   onPressed: _toggleOrientation,
+        //   size: 40,
+        // ),
       ],
     );
 
@@ -647,7 +650,8 @@ class DefaultVideoPlayerControlPanelState
     if (_isFullStatus == true || isReset == true) {
       await ScreenUtils.toPortraitUp();
       _isFullStatus = false;
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,overlays:SystemUiOverlay.values);
+      SystemChrome.setEnabledSystemUIMode(
+          SystemUiMode.manual, overlays: SystemUiOverlay.values);
     } else {
       await ScreenUtils.toLandscape();
       _isFullStatus = true;
@@ -659,7 +663,7 @@ class DefaultVideoPlayerControlPanelState
   void _createNavigatorTimer() {
     _timer ??= Timer(
       const Duration(seconds: 8),
-      () async {
+          () async {
         _animationController?.forward();
       },
     );
@@ -681,7 +685,7 @@ class DefaultVideoPlayerControlPanelState
 
   /// 当前用户水平滑动到多少秒  用于快进或快退
   final ValueNotifier<Duration> _currentHorizontalDragPos =
-      ValueNotifier(const Duration(seconds: 0));
+  ValueNotifier(const Duration(seconds: 0));
 
   /// 当前是否横向拖动
   final ValueNotifier<bool> _isHorizontalDragNow = ValueNotifier(false);
@@ -719,7 +723,10 @@ class DefaultVideoPlayerControlPanelState
       // 方法2  按比例滑动间隔大 觉得跟进度条滑动切换进度的功能重复了
       // 计算手指滑动的比例
       int newInterval = pdx - cdx;
-      double playerW = MediaQuery.of(context).size.width;
+      double playerW = MediaQuery
+          .of(context)
+          .size
+          .width;
       int curIntervalAbs = newInterval.abs();
       double movePropCheck = (curIntervalAbs / playerW) * 100;
       // 计算进度条的比例
@@ -755,51 +762,52 @@ class DefaultVideoPlayerControlPanelState
       builder: (_, isTouch, __) {
         return isTouch
             ? Container(
-                height: 88,
-                width: 168,
-                padding: const EdgeInsets.only(
-                    left: 16, right: 16, top: 16, bottom: 8),
-                alignment: Alignment.center,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(5),
+          height: 88,
+          width: 168,
+          padding: const EdgeInsets.only(
+              left: 16, right: 16, top: 16, bottom: 8),
+          alignment: Alignment.center,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(
+              Radius.circular(5),
+            ),
+            color: Color.fromRGBO(0, 0, 0, 0.5),
+          ),
+          child: ValueListenableBuilder<Duration>(
+            valueListenable: _currentHorizontalDragPos,
+            builder: (_, dragPos, __) {
+              bool isLeft = dragPos.inSeconds < (widget.currentTime ?? 0);
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    isLeft == true
+                        ? Icons.fast_rewind
+                        : Icons.fast_forward,
+                    size: 40,
+                    color: Colors.white,
                   ),
-                  color: Color.fromRGBO(0, 0, 0, 0.5),
-                ),
-                child: ValueListenableBuilder<Duration>(
-                  valueListenable: _currentHorizontalDragPos,
-                  builder: (_, dragPos, __) {
-                    bool isLeft = dragPos.inSeconds < (widget.currentTime ?? 0);
-                    return Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          isLeft == true
-                              ? Icons.fast_rewind
-                              : Icons.fast_forward,
-                          size: 40,
-                          color: Colors.white,
-                        ),
-                        /*DefaultAssetImage(
+                  /*DefaultAssetImage(
                           isLeft
                               ? 'assets/images/common/icon_drag_left.png'
                               : 'assets/images/common/icon_drag_right.png',
                           width: 40,
                           height: 32,
                         ),*/
-                        const SizedBox(height: 2),
-                        Text(
-                          '${_duration2String(dragPos)} / ${_duration2String(Duration(seconds: widget.duration ?? 0))}',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    );
-                  },
-                ),
-              )
+                  const SizedBox(height: 2),
+                  Text(
+                    '${_duration2String(dragPos)} / ${_duration2String(
+                        Duration(seconds: widget.duration ?? 0))}',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        )
             : Container();
       },
     );
@@ -865,7 +873,7 @@ class DefaultVideoPlayerControlPanelState
                   // 显示，亮度 || 音量
                   return Container(
                     padding:
-                        const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -881,7 +889,10 @@ class DefaultVideoPlayerControlPanelState
                             value: dragValue,
                             backgroundColor: Colors.white54,
                             valueColor: AlwaysStoppedAnimation(
-                              Theme.of(context).colorScheme.primary,
+                              Theme
+                                  .of(context)
+                                  .colorScheme
+                                  .primary,
                             ),
                           ),
                         ),
@@ -895,7 +906,10 @@ class DefaultVideoPlayerControlPanelState
 
   /// 垂直拖动开始
   void _onVerticalDragStart(DragStartDetails details) async {
-    double clientW = MediaQuery.of(context).size.width;
+    double clientW = MediaQuery
+        .of(context)
+        .size
+        .width;
     double curTouchPosX = details.globalPosition.dx;
 
     // 更新位置
@@ -1043,14 +1057,14 @@ class _AnimatedBuilderRow extends StatelessWidget {
     return alwaysShow == true
         ? body
         : AnimatedBuilder(
-            animation: animation,
-            builder: (BuildContext context, Widget? child) {
-              return SizeTransition(
-                sizeFactor: animation,
-                child: child,
-              );
-            },
-            child: body,
-          );
+      animation: animation,
+      builder: (BuildContext context, Widget? child) {
+        return SizeTransition(
+          sizeFactor: animation,
+          child: child,
+        );
+      },
+      child: body,
+    );
   }
 }
