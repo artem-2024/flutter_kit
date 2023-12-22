@@ -58,14 +58,16 @@ class _VideoPlayerControlsState extends State<VideoPlayerControls>
             chewieController.videoPlayerController.value.errorDescription!,
           ) ??
           Center(
-            child: Row(
+            child: Column(
               mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Icon(
                   Icons.error,
                   color: Colors.white,
                   size: 42,
                 ),
+                const SizedBox(width: 4),
                 Text(
                   _latestValue.errorDescription ?? '--',
                   style: const TextStyle(color: Colors.white),
