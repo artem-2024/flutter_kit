@@ -257,7 +257,76 @@ class _DefaultUpgradeUIState extends State<_DefaultUpgradeUI>
       onWillPop: () async {
         return !mustUpgrade;
       },
-      child: AlertDialog(
+      child: Material(
+        color: Colors.transparent,
+        child: Stack(
+          clipBehavior: Clip.none,
+          alignment: Alignment.center,
+          children:  [
+            Container(
+              width: 297.5,
+              padding: const EdgeInsets.only(left: 15,right: 15,top:40,bottom: 30),
+              decoration:  BoxDecoration(
+                image: const DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage('assets/images/dialog_tips_bg.png',package: 'flutter_kit')
+                ),
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Text(
+                    '温馨提示',
+                    style: TextStyle(fontSize: 25),
+                  ),
+                  const SizedBox(height: 21),
+                  Text(widget.releaseDesc?.trim().isNotEmpty == true
+                      ? widget.releaseDesc!
+                      : 'Fixed some bugs',style: const TextStyle(fontSize: 15,color: Color(0xff666666)),),
+                  const SizedBox(height: 46),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (!mustUpgrade && widget.isManualCall != true)
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: DialogActionBtn(
+                            onTap: () {
+                              StorageUtils.setBool('$_noTipAgainKey$releaseCode', true);
+                              _closeSelf();
+                            },
+                            text: '不再提示',
+                          ),
+                        ),
+                      if (!mustUpgrade)
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: DialogActionBtn(
+                            onTap: _closeSelf,
+                            text: '取消',
+                          ),
+                        ),
+                      ValueListenableBuilder<String>(
+                          valueListenable: _confirmTextStr,
+                          builder: (_, str, __) {
+                          return DialogActionBtn(
+                            onTap: _checkUpNow,
+                            text: str,
+                          );
+                        }
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+   /*   child: AlertDialog(
         title: Text('发现新版本，$releaseCode来啦'),
         content: Text(widget.releaseDesc?.trim().isNotEmpty == true
             ? widget.releaseDesc!
@@ -286,7 +355,7 @@ class _DefaultUpgradeUIState extends State<_DefaultUpgradeUI>
             ),
           ),
         ],
-      ),
+      ),*/
     );
   }
 }

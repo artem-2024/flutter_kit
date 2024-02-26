@@ -150,6 +150,7 @@ class DefaultAssetImage extends StatelessWidget {
     this.alignment = Alignment.center,
     this.fit,
     this.color,
+    this.package,
   }) : super(key: key);
 
   final String name;
@@ -158,6 +159,7 @@ class DefaultAssetImage extends StatelessWidget {
   final Alignment alignment;
   final BoxFit? fit;
   final Color? color;
+  final String? package;
 
   @override
   Widget build(BuildContext context) {
@@ -168,6 +170,7 @@ class DefaultAssetImage extends StatelessWidget {
       alignment: alignment,
       fit: fit,
       color: color,
+      package: package,
       errorBuilder: (_, e, s) {
         LogUtils.instance.e('加载Asset图片失败', e, s);
         return const Text('未知图标');
