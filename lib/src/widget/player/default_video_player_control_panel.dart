@@ -631,7 +631,7 @@ class DefaultVideoPlayerControlPanelState
     bool? result = true;
     // 直播时退出需二次确认
     if (widget.isLive == true) {
-      result = await showDefaultTipsDialog(context,
+      result = await showThemeTipsDialog(context,
           contentText: '是否退出该直播间', confirmText: '退出');
     }
     if (!shouldPopScope && result == true) {
