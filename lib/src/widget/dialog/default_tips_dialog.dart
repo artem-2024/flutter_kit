@@ -89,10 +89,6 @@ Future<bool?> showThemeTipsDialog(
           confirm?.call();
         },
       );
-      // 测试
-      if(1==1){
-        contentText = '1.增加信息全部已读功能;\n2.加入错误日志上传按钮，用于协助技术查询问题;\n3.其他已知问题修复;';
-      }
 
       final actions = justShowConfirm ? [confirmAction] : [ confirmAction,const SizedBox(width: 6.5,),cancelAction];
       final content = contentWidget ??
