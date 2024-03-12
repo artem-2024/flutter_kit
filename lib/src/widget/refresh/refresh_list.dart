@@ -285,7 +285,7 @@ class RefreshListState<T> extends State<RefreshList<T>> {
       controller: _scrollController,
       showGlowLeading: false,
       showGlowTrailing: false,
-      rebuildCustomScrollView: true,
+      // rebuildCustomScrollView: true,
       physics: widget.physics ?? _defaultPhysics,
       slivers: slivers,
     );

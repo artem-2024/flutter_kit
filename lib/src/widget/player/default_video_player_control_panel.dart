@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:screen_brightness/screen_brightness.dart';
 import 'package:volume_controller/volume_controller.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 import '../../../flutter_kit.dart';
 import '../../utils/logger.dart';
 import '../../utils/screen_utils.dart';
@@ -157,7 +157,7 @@ class DefaultVideoPlayerControlPanelState
   void initState() {
     super.initState();
     if (widget.autoWakelock) {
-      Wakelock.enable();
+      WakelockPlus.enable();
     }
     _animationController = AnimationController(
         duration: const Duration(milliseconds: 350), vsync: this);
@@ -168,7 +168,7 @@ class DefaultVideoPlayerControlPanelState
   @override
   void dispose() {
     if (widget.autoWakelock) {
-      Wakelock.disable();
+      WakelockPlus.disable();
     }
     _resetBrightness();
     if (_animationController != null) {

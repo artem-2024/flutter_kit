@@ -1,7 +1,8 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
+
 
 import '../default_loading.dart';
 import 'video_player_controls.dart';
@@ -26,7 +27,7 @@ class VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   @override
   void initState() {
     super.initState();
-    Wakelock.enable();
+    WakelockPlus.enable();
     videoPlayerController = VideoPlayerController.network(widget.videoUrl);
     videoPlayerController?.addListener(listener);
     chewieController = ChewieController(
@@ -43,7 +44,7 @@ class VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   }
   @override
   void dispose() {
-    Wakelock.disable();
+    WakelockPlus.disable();
     videoPlayerController?.removeListener(listener);
     videoPlayerController?.dispose();
     chewieController?.dispose();
