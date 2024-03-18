@@ -9,10 +9,12 @@ class DefaultIconButton extends StatelessWidget {
     required this.icon,
     this.onPressed,
     this.size = 28,
+    this.heightSize,
   }) : super(key: key);
   final String icon;
   final VoidCallback? onPressed;
   final double size;
+  final double? heightSize;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class DefaultIconButton extends StatelessWidget {
       icon: DefaultAssetImage(
         icon,
         width: size,
-        height: size,
+        height: heightSize??size,
       ),
     );
   }
