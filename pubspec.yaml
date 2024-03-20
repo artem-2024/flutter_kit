@@ -44,7 +44,6 @@ dependencies:
   path: ^1.8.1
   # 安装apk、跳转AppStore的App页面或评价页
   app_installer: ^1.1.0
-  webview_flutter: ^3.0.0
   # http请求
   dio: ^4.0.4
   # 屏幕常亮
