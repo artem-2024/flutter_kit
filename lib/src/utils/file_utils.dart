@@ -5,6 +5,7 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
+import '../../flutter_kit_utils.dart';
 import 'logger.dart';
 import 'permission_utils.dart';
 import 'package:path_provider/path_provider.dart';
@@ -48,9 +49,9 @@ class FileUtils {
     }
     try {
       // 检查权限
-      bool isGrand = await checkStoragePermission(context);
+      bool isGrand = await checkStoragePermission(context,showMsg: true);
       if (isGrand != true) {
-        onErr?.call(Exception('未授予下载的相关权限，请重试'));
+        onErr?.call(Exception('未授予下载的相关权限，请重试',));
         if (defaultTargetPlatform == TargetPlatform.android) {
           openAppSettings();
         }
@@ -168,27 +169,39 @@ class FileUtils {
   }
 
   /// 检查读写权限
-  Future<bool> checkStoragePermission(BuildContext context) async {
-    List<Permission> permissions = [Permission.storage];
+  Future<bool> checkStoragePermission(BuildContext context,{bool showMsg = false}) async {
+    // 请求相关权限
+    final needPermission = [
+      Permission.storage,
+    ];
 
-    if(defaultTargetPlatform == TargetPlatform.android){
-      permissions =  [Permission.storage,
-        Permission.manageExternalStorage];
+    if(defaultTargetPlatform ==  TargetPlatform.android){
+      // 判断是否需要android特殊权限
+      final androidDeviceAndroidInfo =
+      await DevicesInfoUtils.instance.deviceAndroidInfo;
+      bool isAndroid11Up = (androidDeviceAndroidInfo?.version.sdkInt ?? 0) >= 30;
+      if (isAndroid11Up) {
+        needPermission.add(Permission.manageExternalStorage);
+      }
     }
 
-    final permissionResult = await PermissionUtils.instance.request(
-      context,
-      permissions,
-    );
-    bool hasPermission = true;
+    final permissionResult = await PermissionUtils.instance
+        .request(context, needPermission,);
+
+    String? noPermissionStr;
     if (permissionResult != null) {
       permissionResult.forEach((key, value) {
         if (!PermissionUtils.checkStatusCanWork(value)) {
-          hasPermission=false;
+          noPermissionStr = '未允许相关权限，请重试(${key.toString()})';
         }
       });
     }
-
-    return hasPermission;
+    if (noPermissionStr?.isNotEmpty == true) {
+      if (showMsg) {
+        ToastUtils.showText(noPermissionStr);
+      }
+      return false;
+    }
+    return true;
   }
 }
