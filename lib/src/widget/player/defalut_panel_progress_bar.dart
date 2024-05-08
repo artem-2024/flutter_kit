@@ -247,15 +247,15 @@ class _BaseSliderState extends State<_BaseSlider> {
           widget.onChangeEnd?.call(dragValue);
         }
       },
-      onTapDown: (TapDownDetails details) {
-        final globalPosition = details.globalPosition;
-        final box = context.findRenderObject()! as RenderBox;
-        final Offset tapPos = box.globalToLocal(globalPosition);
-        final double relative = tapPos.dx / box.size.width;
-        final sec = widget.max * relative;
-        widget.onChanged.call(sec);
-        widget.onChangeEnd?.call(sec);
-      },
+      // onTapDown: (TapDownDetails details) {
+      //   final globalPosition = details.globalPosition;
+      //   final box = context.findRenderObject()! as RenderBox;
+      //   final Offset tapPos = box.globalToLocal(globalPosition);
+      //   final double relative = tapPos.dx / box.size.width;
+      //   final sec = widget.max * relative;
+      //   widget.onChanged.call(sec);
+      //   widget.onChangeEnd?.call(sec);
+      // },
     );
   }
 }
