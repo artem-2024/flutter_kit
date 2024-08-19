@@ -1,11 +1,22 @@
 import 'dart:io';
 
+import 'package:cupertino_http/cupertino_http.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_kit/flutter_kit.dart';
 
+import 'ios/cupertino_adapter.dart';
+
 HttpClientAdapter getAdapter() {
+  if(defaultTargetPlatform == TargetPlatform.iOS){
+    final config = URLSessionConfiguration.ephemeralSessionConfiguration()
+      ..allowsCellularAccess = false
+      ..allowsConstrainedNetworkAccess = false
+      ..allowsExpensiveNetworkAccess = false;
+    return CupertinoAdapter(config);
+  }
+
   return DefaultHttpClientAdapter()
     ..onHttpClientCreate = (client) {
       // 配置代理

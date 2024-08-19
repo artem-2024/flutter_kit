@@ -85,6 +85,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.17.2"
+  cupertino_http:
+    dependency: "direct main"
+    description:
+      name: cupertino_http
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.1.0"
   cupertino_icons:
     dependency: transitive
     description:
