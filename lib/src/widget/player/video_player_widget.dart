@@ -31,15 +31,17 @@ class VideoPlayerWidgetState extends State<VideoPlayerWidget> {
     videoPlayerController?.addListener(listener);
     chewieController = ChewieController(
       showControlsOnInitialize: true,
-      placeholder: Container(color: Colors.black,child: const Center(child: DefaultCircularProgressIndicator())),
-      looping: false,
+      // placeholder: Container(color: Colors.black,child: const Center(child: DefaultCircularProgressIndicator())),
+      looping: true,
+      autoPlay: true,
+      autoInitialize: true,
       videoPlayerController: videoPlayerController!,
       showOptions: false,
       aspectRatio: 16/9,
-      customControls: VideoPlayerControls(showVerticalLeading: widget.showVerticalLeading,),
+      customControls: VideoPlayerControls(showVerticalLeading: widget.showVerticalLeading,url: widget.videoUrl,),
       allowedScreenSleep: false,
     );
-    initializePlayerSource();
+    // initializePlayerSource();
   }
   @override
   void dispose() {
@@ -58,10 +60,10 @@ class VideoPlayerWidgetState extends State<VideoPlayerWidget> {
     }
   }
 
-  void initializePlayerSource()async{
-    await videoPlayerController?.initialize();
-    // await videoPlayerController?.play();
-  }
+  // void initializePlayerSource()async{
+  //   await videoPlayerController?.initialize();
+  //   // await videoPlayerController?.play();
+  // }
 
   /// 暂停播放  [ignoreOnFullScreen]是否忽略全屏的情况，因为该插件的全屏方式的原理是跳转到新页面
   void pause({bool ignoreOnFullScreen = false}){

@@ -5,8 +5,11 @@ import 'package:chewie/src/center_play_button.dart';
 import 'package:chewie/src/material/material_progress_bar.dart';
 import 'package:chewie/src/helpers/utils.dart';
 import 'package:chewie/src/notifiers/index.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_kit/flutter_kit_utils.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../utils/screen_utils.dart';
@@ -14,8 +17,9 @@ import '../default_appbar.dart';
 import '../default_loading.dart';
 
 class VideoPlayerControls extends StatefulWidget {
-  const VideoPlayerControls({Key? key,this.showVerticalLeading = true,}) : super(key: key);
+  const VideoPlayerControls({Key? key,this.showVerticalLeading = true,this.url}) : super(key: key);
   final bool showVerticalLeading;
+  final String? url;
   @override
   State<StatefulWidget> createState() {
     return _VideoPlayerControlsState();
@@ -86,7 +90,7 @@ class _VideoPlayerControlsState extends State<VideoPlayerControls>
             absorbing: notifier.hideStuff,
             child: Stack(
               children: [
-                if (_latestValue.isBuffering)
+                if (_latestValue.isBuffering||(!_latestValue.isInitialized))
                   const Center(child: DefaultCircularProgressIndicator())
                 else
                   _buildHitArea(),
@@ -127,6 +131,26 @@ class _VideoPlayerControlsState extends State<VideoPlayerControls>
                 }
                 Navigator.of(context).maybePop();
               },
+            ),
+          ),
+        ),
+        if(widget.url?.isNotEmpty==true)
+        Positioned(
+          right: 0,
+          top: 0,
+          child: Offstage(
+            offstage: ScreenUtils.isLandscape(context),
+            child: TextButton(
+              child: const Text('其它应用打开',style: TextStyle(color: Colors.white,fontSize: 10),),
+              onPressed: ()async{
+                if(chewieController.isPlaying){
+                  chewieController.pause();
+                }
+                launchUrlString(widget.url ?? '',
+                      mode: TargetPlatform.android == defaultTargetPlatform
+                          ? LaunchMode.externalApplication
+                          : LaunchMode.platformDefault);
+                },
             ),
           ),
         ),
