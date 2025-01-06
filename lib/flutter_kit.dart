@@ -24,6 +24,7 @@ class FlutterKitConfig {
     this.exitByDoubleTapBackOnAndroid = true,
     this.iOSAppId,
     this.networkErrChild,
+    this.imageHeaders,
   });
 
   final GetPageChild? getPageChild;
@@ -35,6 +36,8 @@ class FlutterKitConfig {
 
   /// 无网络child
   final Widget? networkErrChild;
+  /// 访问图片资源时的请求头
+  final Map<String, String>? imageHeaders;
 
 }
 

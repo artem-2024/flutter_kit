@@ -10,7 +10,7 @@ abstract class BaseHttpClientDio extends DioForNative {
   BaseHttpClientDio() {
     (transformer as DefaultTransformer).jsonDecodeCallback = parseJsonCallback;
     options = BaseOptions(
-      connectTimeout: 10 * 1000,
+      connectTimeout: 20 * 1000,
       // 下载需要的时间要长些
       receiveTimeout: 60 * 1000 * 30,
       sendTimeout: 60 * 1000,

@@ -1,5 +1,6 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_kit/flutter_kit.dart';
 import 'package:flutter_kit/src/widget/default_loading.dart';
 
 import '../../utils/logger.dart';
@@ -58,6 +59,9 @@ Widget getDefaultNetWorkImage(String? imgUrl, {
   // String requestUrl =
   //     (needAppendOSSStyle ? appendAliOSSStyle(imgUrl) : imgUrl) ?? '';
 
+  final imageHeaders = FlutterKit.flutterKitConfig.imageHeaders;
+  // debugPrint('imageHeaders=$imageHeaders');
+
   Widget imgWidget = ExtendedImage.network(
     imgUrl??'',
     shape: shape,
@@ -98,6 +102,7 @@ Widget getDefaultNetWorkImage(String? imgUrl, {
       }
       return null;
     },
+    headers: imageHeaders,
   );
   if (borderRadius != null) {
     imgWidget = Material(
